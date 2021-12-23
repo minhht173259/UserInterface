@@ -152,15 +152,15 @@ const CrmCare = function () {
                           <label for="checkbox100"/>
                         </div>
                       </th> */}
-                        <th className="w-25">Tên hoạt động</th>
-                        <th className="w-25">Loại hình chăm sóc</th>
-                        <th className="w-25">Tên khách hàng</th>
-                        <th className="w-25">Độ ưu tiên</th>
-                        <th className="w-25">Nhân viên phụ trách</th>
-                        <th className="w-25">Trạng thái</th>
-                        <th className="w-25">Ngày bắt đầu</th>
-                        <th className="w-25">Ngày kết thúc</th>
-                        <th className="w-25">Hành động</th>
+                        <th className="w-auto">Tên hoạt động</th>
+                        <th className="w-auto">Loại hình chăm sóc</th>
+                        <th className="w-auto">Tên khách hàng</th>
+                        <th className="w-auto">Độ ưu tiên</th>
+                        <th className="w-auto">Nhân viên phụ trách</th>
+                        <th className="w-auto">Trạng thái</th>
+                        <th className="w-auto">Ngày bắt đầu</th>
+                        <th className="w-auto">Ngày kết thúc</th>
+                        <th className="w-auto">Hành động</th>
                       </tr>
                     </thead>
                     <tbody>
