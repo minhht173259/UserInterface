@@ -7,7 +7,7 @@ function AddForm() {
     return (
         <div>
             <Modal.Header closeButton>
-                <Modal.Title>Thêm mới hoạt động</Modal.Title>
+                <Modal.Title>Thêm nhóm khách hàng</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div class="container">
