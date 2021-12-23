@@ -31,8 +31,8 @@ const Sidebar = (props) => {
   return (
     <nav className={cn(s.root, {[s.sidebarOpen]: burgerSidebarOpen})} >
       <header className={s.logo}>
-        <SofiaLogo/>
-        <span className={s.title}>SOFIA</span>
+        {/* <SofiaLogo/> */}
+        <span className={s.title}>quản lý khách hàng</span>
       </header>
       <ul className={s.nav}>
         <LinksGroup
@@ -44,6 +44,23 @@ const Sidebar = (props) => {
           link="/template/dashboard"
           index="dashboard"
           badge="9"
+        />
+        {/* <h5 className={s.navTitle}>TEMPLATE</h5> */}
+        <LinksGroup
+          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
+          activeItem={props.activeItem}
+          header="Chăm sóc khách hàng"
+          isHeader
+          iconName={<i className={'eva eva-person-outline'}/>}
+          link="/crm/care"
+        />
+        <LinksGroup
+          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
+          activeItem={props.activeItem}
+          header="Nhóm khách hàng"
+          isHeader
+          iconName={<i className={'eva eva-people-outline'}/>}
+          link="/crm/group"
         />
         <h5 className={s.navTitle}>TEMPLATE</h5>
         <LinksGroup
@@ -94,9 +111,9 @@ const Sidebar = (props) => {
           ]}
         />
       </ul>
-      <div className="bg-widget d-flex mt-auto ml-1">
+      {/* <div className="bg-widget d-flex mt-auto ml-1">
         <Button className="rounded-pill my-3 body-2 d-none d-md-block" type="submit" color="secondary-red">Unlock Full Version</Button>
-      </div>
+      </div> */}
     </nav>
   );
 }

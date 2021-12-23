@@ -129,7 +129,7 @@ const Header = (props) => {
             <span className={`${s.avatar} rounded-circle float-left mr-2`}>
               <img src={userImg} alt="User"/>
             </span>
-            <span className="small d-none d-sm-block ml-1 mr-2 body-1">Christina Carey</span>
+            <span className="small d-none d-sm-block ml-1 mr-2 body-1">Admin</span>
           </DropdownToggle>
           <DropdownMenu className="navbar-dropdown profile-dropdown" style={{ width: "194px" }}>
             <DropdownItem className={s.dropdownProfileItem}><ProfileIcon/><span>Profile</span></DropdownItem>

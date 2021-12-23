@@ -8,9 +8,11 @@ import { connect } from "react-redux";
 
 // -- Custom Components
 import LayoutComponent from "./components/Layout/Layout";
+import CrmLayoutComponent from "./components/Layout/CrmLayout";
 import ErrorPage from "./pages/error/ErrorPage";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
+
 
 // -- Redux Actions
 import { logoutUser } from "./actions/auth";
@@ -44,6 +46,7 @@ const App = (props) => {
           <Route path="/" exact render={() => <Redirect to="/template/dashboard" />} />
           <Route path="/template" exact render={() => <Redirect to="/template/dashboard"/>}/>
           <PrivateRoute path="/template" dispatch={props.dispatch} component={LayoutComponent} />
+          <PrivateRoute path="/crm" dispatch={props.dispatch} component={CrmLayoutComponent} />
           <Route path="/login" exact component={Login} />
           <Route path="/error" exact component={ErrorPage} />
           <Route path="/register" exact component={Register} />
