@@ -58,6 +58,35 @@ export default function Notification({ ...props }) {
   )
 };
 
+export function Notification2({ ...props }) {
+
+  const [notificationOpen, setNotificationClose] = useState(true)
+
+  const icon = getIconByType(props.type)
+
+  const closeNotification = () => {
+    setNotificationClose(!notificationOpen)
+  }
+
+  return (
+    <>
+      <Alert
+        className={s.notificationContainer}
+        style={{backgroundColor: colors[props.type]}}
+        isOpen={notificationOpen}
+        toggle={() => closeNotification()}
+      >
+        <div className={s.notificationIconContainer}>
+          {props.withIcon && <img src={icon} alt="..."/>}
+        </div>
+        <div className={s.messageContainer}>
+          <span dangerouslySetInnerHTML={{__html: `<span class='body-2'>${props.type}:</span> ${props.msg}`}}></span>
+        </div>
+      </Alert>
+    </>
+  )
+};
+
 function getIconByType(type = "info") {
   return typesIcons[type];
 }
