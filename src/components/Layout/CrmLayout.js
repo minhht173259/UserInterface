@@ -24,6 +24,7 @@ import Maps from "../../pages/uielements/maps/google/GoogleMapPage";
 // -- Component Styles
 import s from "./Layout.module.scss";
 
+import CrmInfo from "../../pages/crm-info/CrmGroup";
 const CrmLayout = (props) => {
   return (
     <div className={s.root}>
@@ -33,29 +34,39 @@ const CrmLayout = (props) => {
         <main className={s.content}>
           <Breadcrumbs url={props.location.pathname} />
           <Switch>
-            <Route path="/crm" exact render={() => <Redirect to="template/dashboard"/>} />
-            <Route path="/crm/dashboard" exact component={Dashboard}/>
+            <Route
+              path="/crm"
+              exact
+              render={() => <Redirect to="template/dashboard" />}
+            />
+            <Route path="/crm/dashboard" exact component={Dashboard} />
             <Route path="/crm/care" exact component={CrmCare} />
             <Route path="/crm/group" exact component={CrmGroup} />
+            <Route path="/crm/info" exact component={CrmInfo} />
+
             <Route path="/crm/tables" exact component={Tables} />
             <Route path="/crm/notifications" exact component={Notifications} />
-            <Route path="/crm/ui-elements" exact render={() => <Redirect to={"/template/ui-elements/charts"} />} />
+            <Route
+              path="/crm/ui-elements"
+              exact
+              render={() => <Redirect to={"/template/ui-elements/charts"} />}
+            />
             <Route path="/crm/ui-elements/charts" exact component={Charts} />
             <Route path="/crm/ui-elements/icons" exact component={Icons} />
             <Route path="/crm/ui-elements/maps" exact component={Maps} />
-            <Route path='*' exact render={() => <Redirect to="/error" />} />
+            <Route path="*" exact render={() => <Redirect to="/error" />} />
           </Switch>
         </main>
         <Footer />
       </div>
     </div>
   );
-}
+};
 
 CrmLayout.propTypes = {
   sidebarOpened: PropTypes.bool,
   dispatch: PropTypes.func.isRequired,
-}
+};
 
 function mapStateToProps(store) {
   return {
