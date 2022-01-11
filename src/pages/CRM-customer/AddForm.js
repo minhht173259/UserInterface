@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import './AddForm.module.css';
 import { Button, Modal } from 'react-bootstrap';
-import './styles.scss';
 
-function AddForm() {
+function AddForm({ open, onClose }) {
   return (
-    <div>
+    <Modal show={open} onHide={onClose}>
       <Modal.Header closeButton>
         <Modal.Title>Thêm nhóm khách hàng</Modal.Title>
       </Modal.Header>
@@ -23,7 +21,7 @@ function AddForm() {
           </form>
         </div>
       </Modal.Body>
-    </div>
+    </Modal>
   );
 }
 

@@ -7,39 +7,29 @@ import {
   Pagination,
   PaginationItem,
   PaginationLink,
-  ButtonDropdown,
-  Dropdown,
-  DropdownMenu,
-  DropdownToggle,
-  DropdownItem,
-  Label,
-  Badge,
+  Button,
 } from 'reactstrap';
 import Widget from '../../components/Widget/Widget.js';
-import TaskContainer from './components/TaskContainer/TaskContainer.js';
 import 'font-awesome/css/font-awesome.min.css';
-// import BootstrapTable from "react-bootstrap-table-next";
-// import paginationFactory from 'react-bootstrap-table2-paginator';
-// import MUIDataTable from "mui-datatables";
 
 import cloudIcon from '../../assets/tables/cloudIcon.svg';
 import funnelIcon from '../../assets/tables/funnelIcon.svg';
 import optionsIcon from '../../assets/tables/optionsIcon.svg';
 import printerIcon from '../../assets/tables/printerIcon.svg';
 import searchIcon from '../../assets/tables/searchIcon.svg';
-import moreIcon from '../../assets/tables/moreIcon.svg';
 
 import s from './Tables.module.scss';
 import mock from './mock.js';
-import { Button, Modal } from 'react-bootstrap';
-import AddForm from './AddForm.js';
+import { Modal } from 'react-bootstrap';
 import { Notification2 } from '../../components/Notification/Notification.js';
 import { toast } from 'react-toastify';
 import './styles.scss';
 import classNames from 'classnames';
-import SelectCrm from '../CRM-customer/components/SelectCrm.js';
+import SelectCrm from './components/SelectCrm.js';
+import { Select } from 'antd';
+import AddForm from './AddForm.js';
 
-const CrmCare = function () {
+const CrmCustomers = function () {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [firstTable] = useState(mock.firstTable);
   const [secondTable] = useState(mock.secondTable);
@@ -49,10 +39,11 @@ const CrmCare = function () {
   const [secondTableCurrentPage, setSecondTableCurrentPage] = useState(0);
   const [tableDropdownOpen, setTableMenuOpen] = useState(false);
 
+  const [openExport, setOpenExport] = useState(false);
+  const [openAddForm, setOpenAddForm] = useState(false);
+
   const pageSize = 10;
   const firstTablePagesCount = Math.ceil(firstTable.length / pageSize);
-
-  const [openExport, setOpenExport] = useState(false);
 
   const setFirstTablePage = (e, index) => {
     e.preventDefault();
@@ -101,8 +92,8 @@ const CrmCare = function () {
 
   return (
     <div>
+      {/* <AddForm open={openAddForm} onClose={() => setOpenAddForm(false)} /> */}
       <Modal show={show} onHide={handleClose}>
-        <AddForm />
         <Modal.Footer>
           <Button variant='secondary' onClick={handleClose}>
             Đóng
@@ -151,18 +142,24 @@ const CrmCare = function () {
           </button>
         </div>
       </Modal>
-
       <Row>
         <Col>
           <Row className='header__container'>
-            <div className='headline-1'>Nhóm khách hàng</div>
+            <div className='headline-1'>Quản lý thông tin khách hàng</div>
             <div>
               <button
                 color='primary'
                 className={classNames('button_add')}
-                onClick={() => setShow(true)}
+                onClick={() => setOpenAddForm(true)}
               >
-                Thêm mới nhóm khách hàng
+                Thêm mới khách hàng
+              </button>
+              <button
+                color='primary'
+                className={classNames('button_export')}
+                onClick={() => setOpenExport(true)}
+              >
+                Xuất báo cáo
               </button>
             </div>
           </Row>
@@ -172,23 +169,23 @@ const CrmCare = function () {
               <img src={searchIcon} alt='Search' className='icon_search' />
               <input
                 type='text'
-                placeholder='Tìm kiếm theo mã nhóm khách hàng'
+                placeholder='Tìm kiếm theo mã khách hàng'
               ></input>
               <button type='button' className={classNames('button_search')}>
                 Tìm kiếm
               </button>
             </div>
-            {/* <div className='filter__options'>
+            <div className='filter__options'>
               <SelectCrm title={'Trạng thái khách hàng'} />
               <SelectCrm title={'Người quản lý'} />
               <SelectCrm title={'Nhóm khách hàng'} />
-            </div> */}
+            </div>
           </Row>
           <Row className='mb-4'>
             <Col>
               <Widget>
                 <div className={s.tableTitle}>
-                  <div className='headline-2'></div>
+                  <div></div>
                   <div className='d-flex'>
                     <a href='/#'>
                       <img src={searchIcon} alt='Search' />
@@ -232,10 +229,13 @@ const CrmCare = function () {
                           <label for="checkbox100"/>
                         </div>
                       </th> */}
-                        <th className='w-25'>Mã nhóm khách hàng</th>
-                        <th className='w-25'>Tên nhóm khách hàng</th>
-                        <th className='w-25'>Mô tả nhóm khách hàng</th>
-                        <th className='w-25'>Số lượng KH</th>
+                        <th className='w-25'>Mã khách hàng</th>
+                        <th className='w-25'>Tên khách hàng</th>
+                        <th className='w-25'>Trạng thái khách hàng</th>
+                        <th className='w-25'>Loại khách hàng</th>
+                        <th className='w-25'>Email</th>
+                        <th className='w-25'>Số điện thoại</th>
+                        <th className='w-25'>Người quản lý</th>
                         <th className='w-25'>Hành động</th>
                       </tr>
                     </thead>
@@ -258,10 +258,14 @@ const CrmCare = function () {
                             </div>
                           </td> */}
                             {/* <td className="d-flex align-items-center"><img className={s.image} src={item.img} alt="User"/><span className="ml-3">{item.name}</span></td> */}
-                            <td>{item.groupId}</td>
-                            <td>{item.groupName}</td>
-                            <td>{item.groupDescription}</td>
-                            <td>{item.numberOfCustomer}</td>
+                            <td>{item.code}</td>
+                            <td>{item.name}</td>
+                            <td>{item.status}</td>
+                            <td>{item.type}</td>
+                            <td>{item.email}</td>
+                            <td>{item.phone}</td>
+                            <td>{item.assignee}</td>
+
                             <td>
                               <i
                                 className='fa fa-edit'
@@ -323,4 +327,4 @@ const CrmCare = function () {
   );
 };
 
-export default CrmCare;
+export default CrmCustomers;

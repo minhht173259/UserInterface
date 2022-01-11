@@ -1,112 +1,145 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Button} from 'reactstrap';
+import { Button } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
-import s from "./Sidebar.module.scss";
-import LinksGroup from "./LinksGroup/LinksGroup.js";
-import { changeActiveSidebarItem } from "../../actions/navigation.js";
-import SofiaLogo from "../Icons/SofiaLogo.js";
-import cn from "classnames";
+import s from './Sidebar.module.scss';
+import LinksGroup from './LinksGroup/LinksGroup.js';
+import { changeActiveSidebarItem } from '../../actions/navigation.js';
+import SofiaLogo from '../Icons/SofiaLogo.js';
+import cn from 'classnames';
 
 const Sidebar = (props) => {
+  const { activeItem = '', ...restProps } = props;
 
-  const {
-    activeItem = '',
-    ...restProps
-  } = props;
-
-  const [burgerSidebarOpen, setBurgerSidebarOpen] = useState(false)
+  const [burgerSidebarOpen, setBurgerSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (props.sidebarOpened) {
-      setBurgerSidebarOpen(true)
+      setBurgerSidebarOpen(true);
     } else {
       setTimeout(() => {
-        setBurgerSidebarOpen(false)
+        setBurgerSidebarOpen(false);
       }, 0);
     }
-  }, [props.sidebarOpened])
+  }, [props.sidebarOpened]);
 
   return (
-    <nav className={cn(s.root, {[s.sidebarOpen]: burgerSidebarOpen})} >
+    <nav className={cn(s.root, { [s.sidebarOpen]: burgerSidebarOpen })}>
       <header className={s.logo}>
         {/* <SofiaLogo/> */}
         <span className={s.title}>quản lý khách hàng</span>
       </header>
       <ul className={s.nav}>
         <LinksGroup
-          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
+          onActiveSidebarItemChange={(activeItem) =>
+            props.dispatch(changeActiveSidebarItem(activeItem))
+          }
           activeItem={props.activeItem}
-          header="Dashboard"
+          header='Dashboard'
           isHeader
-          iconName={<i className={'eva eva-home-outline'}/>}
-          link="/template/dashboard"
-          index="dashboard"
-          badge="9"
-        />
-        {/* <h5 className={s.navTitle}>TEMPLATE</h5> */}
-        <LinksGroup
-          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
-          activeItem={props.activeItem}
-          header="Chăm sóc khách hàng"
-          isHeader
-          iconName={<i className={'eva eva-person-outline'}/>}
-          link="/crm/care"
+          iconName={<i className={'eva eva-home-outline'} />}
+          link='/template/dashboard'
+          index='dashboard'
+          badge='9'
         />
         <LinksGroup
-          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
+          onActiveSidebarItemChange={(activeItem) =>
+            props.dispatch(changeActiveSidebarItem(activeItem))
+          }
           activeItem={props.activeItem}
-          header="Nhóm khách hàng"
+          header='Nhóm khách hàng'
           isHeader
-          iconName={<i className={'eva eva-people-outline'}/>}
-          link="/crm/group"
+          iconName={<i className={'eva eva-people-outline'} />}
+          link='/crm/group'
         />
+        <LinksGroup
+          onActiveSidebarItemChange={(activeItem) =>
+            props.dispatch(changeActiveSidebarItem(activeItem))
+          }
+          activeItem={props.activeItem}
+          header='Thông tin khách hàng'
+          isHeader
+          iconName={<i className={'eva eva-person-outline'} />}
+          link='/crm/customers'
+        />
+        <LinksGroup
+          onActiveSidebarItemChange={(activeItem) =>
+            props.dispatch(changeActiveSidebarItem(activeItem))
+          }
+          activeItem={props.activeItem}
+          header='Chăm sóc khách hàng'
+          isHeader
+          iconName={<i className={'eva eva-person-outline'} />}
+          link='/crm/care'
+        />
+        <LinksGroup
+          onActiveSidebarItemChange={(activeItem) =>
+            props.dispatch(changeActiveSidebarItem(activeItem))
+          }
+          activeItem={props.activeItem}
+          header='Cấu hình hoạt động'
+          isHeader
+          iconName={<i class='fa fa-cog' aria-hidden='true'></i>}
+          link='/crm/settings'
+        />
+
         {/* <h5 className={s.navTitle}>TEMPLATE</h5>
         <LinksGroup
-          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
+          onActiveSidebarItemChange={(activeItem) =>
+            props.dispatch(changeActiveSidebarItem(activeItem))
+          }
           activeItem={props.activeItem}
-          header="Typography"
+          header='Typography'
           isHeader
-          iconName={<i className={'eva eva-text-outline'}/>}
-          link="/template/typography"
-          index="typography"
+          iconName={<i className={'eva eva-text-outline'} />}
+          link='/template/typography'
+          index='typography'
         />
         <LinksGroup
-          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
+          onActiveSidebarItemChange={(activeItem) =>
+            props.dispatch(changeActiveSidebarItem(activeItem))
+          }
           activeItem={props.activeItem}
-          header="Tables"
+          header='Tables'
           isHeader
-          iconName={<i className={'eva eva-grid-outline'}/>}
-          link="/template/tables"
-          index="tables"
+          iconName={<i className={'eva eva-grid-outline'} />}
+          link='/template/tables'
+          index='tables'
         />
         <LinksGroup
-          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
+          onActiveSidebarItemChange={(activeItem) =>
+            props.dispatch(changeActiveSidebarItem(activeItem))
+          }
           activeItem={props.activeItem}
-          header="Notifications"
+          header='Notifications'
           isHeader
-          iconName={<i className={'eva eva-bell-outline'}/>}
-          link="/template/notifications"
-          index="notifications"
+          iconName={<i className={'eva eva-bell-outline'} />}
+          link='/template/notifications'
+          index='notifications'
         />
         <LinksGroup
-          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
+          onActiveSidebarItemChange={(activeItem) =>
+            props.dispatch(changeActiveSidebarItem(activeItem))
+          }
           activeItem={props.activeItem}
-          header="UI Elements"
+          header='UI Elements'
           isHeader
-          iconName={<i className={'eva eva-cube-outline'}/>}
-          link="/template/uielements"
-          index="uielements"
+          iconName={<i className={'eva eva-cube-outline'} />}
+          link='/template/uielements'
+          index='uielements'
           childrenLinks={[
             {
-              header: 'Charts', link: '/template/ui-elements/charts',
+              header: 'Charts',
+              link: '/template/ui-elements/charts',
             },
             {
-              header: 'Icons', link: '/template/ui-elements/icons',
+              header: 'Icons',
+              link: '/template/ui-elements/icons',
             },
             {
-              header: 'Google Maps', link: '/template/ui-elements/maps',
+              header: 'Google Maps',
+              link: '/template/ui-elements/maps',
             },
           ]}
         /> */}
@@ -116,7 +149,7 @@ const Sidebar = (props) => {
       </div> */}
     </nav>
   );
-}
+};
 
 Sidebar.propTypes = {
   sidebarOpened: PropTypes.bool,
@@ -125,7 +158,7 @@ Sidebar.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }).isRequired,
-}
+};
 
 function mapStateToProps(store) {
   return {
