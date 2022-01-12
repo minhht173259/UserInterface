@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import {
   Col,
   Row,
@@ -14,34 +14,35 @@ import {
   DropdownItem,
   Label,
   Badge,
-} from 'reactstrap';
-import Widget from '../../components/Widget/Widget.js';
-import TaskContainer from './components/TaskContainer/TaskContainer.js';
-import 'font-awesome/css/font-awesome.min.css';
+} from "reactstrap";
+import Widget from "../../components/Widget/Widget.js";
+import TaskContainer from "./components/TaskContainer/TaskContainer.js";
+import "font-awesome/css/font-awesome.min.css";
 // import BootstrapTable from "react-bootstrap-table-next";
 // import paginationFactory from 'react-bootstrap-table2-paginator';
 // import MUIDataTable from "mui-datatables";
 
-import cloudIcon from '../../assets/tables/cloudIcon.svg';
-import funnelIcon from '../../assets/tables/funnelIcon.svg';
-import optionsIcon from '../../assets/tables/optionsIcon.svg';
-import printerIcon from '../../assets/tables/printerIcon.svg';
-import searchIcon from '../../assets/tables/searchIcon.svg';
-import moreIcon from '../../assets/tables/moreIcon.svg';
+import cloudIcon from "../../assets/tables/cloudIcon.svg";
+import funnelIcon from "../../assets/tables/funnelIcon.svg";
+import optionsIcon from "../../assets/tables/optionsIcon.svg";
+import printerIcon from "../../assets/tables/printerIcon.svg";
+import searchIcon from "../../assets/tables/searchIcon.svg";
+import moreIcon from "../../assets/tables/moreIcon.svg";
 
-import s from './Tables.module.scss';
-import mock from './mock.js';
-import { Button, Modal } from 'react-bootstrap';
-import AddForm from './AddForm.js';
-import { Notification2 } from '../../components/Notification/Notification.js';
-import { toast } from 'react-toastify';
-import './styles.scss';
-import classNames from 'classnames';
-import SelectCrm from '../CRM-customer/components/SelectCrm.js';
-
+import s from "./Tables.module.scss";
+import mock from "./mock.js";
+import { Button, Modal } from "react-bootstrap";
+import AddForm from "./AddForm.js";
+import { Notification2 } from "../../components/Notification/Notification.js";
+import { toast } from "react-toastify";
+import "./styles.scss";
+import classNames from "classnames";
+import SelectCrm from "../CRM-customer/components/SelectCrm.js";
+import { data, changeData } from "./data/data.js";
+import EditForm from "./EditForm.js";
 const CrmCare = function () {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [firstTable] = useState(mock.firstTable);
+  const [firstTable, setFirstTable] = useState(data);
   const [secondTable] = useState(mock.secondTable);
   const [transactions, setTransactions] = useState(mock.transactionsWidget);
   const [tasks, setTasks] = useState(mock.tasksWidget);
@@ -99,52 +100,56 @@ const CrmCare = function () {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const handleSubmitAddForm = (newValue) => {
+    var newFirstTable = [...firstTable];
+    newValue.numberOfCustomer = 10;
+    newValue.id = "checkbox111";
+    newValue.img = "";
+    newFirstTable.push(newValue);
+    setFirstTable(newFirstTable);
+    changeData(newFirstTable);
+  };
+
+  const [showEdit, setShowEdit] = useState(false);
+  const handleCloseEdit = () => setShowEdit(false);
+  const handleShowEdit = () => setShowEdit(true);
+
+  const [editIndex, setEditIndex] = useState(-1);
+  const handleEditSubmit = (newValue) => {
+    var newFirstTable = [...firstTable];
+    newFirstTable[editIndex].groupId = newValue.groupId;
+    newFirstTable[editIndex].groupName = newValue.groupName;
+    newFirstTable[editIndex].groupDescription = newValue.groupDescription;
+    setFirstTable(newFirstTable);
+    changeData(newFirstTable);
+  };
+
+  const handleDeleteElement = (index) => {
+    var newFirstTable = [...firstTable];
+    newFirstTable.splice(index, 1);
+    setFirstTable(newFirstTable);
+    changeData(newFirstTable);
+  };
   return (
     <div>
       <Modal show={show} onHide={handleClose}>
-        <AddForm />
-        <Modal.Footer>
-          <Button variant='secondary' onClick={handleClose}>
-            Đóng
-          </Button>
-          <Button
-            variant='primary'
-            onClick={() => {
-              const notificationTypes = ['success', 'error'];
-              const getRandomNotification = () => {
-                return notificationTypes[
-                  Math.floor(Math.random() * notificationTypes.length)
-                ];
-              };
-              let notificationName = getRandomNotification();
-              let msg = { success: 'Thêm thành công', error: 'Thêm thất bại' };
-              toast(
-                <Notification2
-                  type={notificationName}
-                  withIcon
-                  msg={msg[notificationName]}
-                />,
-                {
-                  autoClose: 4000,
-                  closeButton: false,
-                  hideProgressBar: true,
-                }
-              );
-              if (notificationName == 'success') handleClose();
-            }}
-          >
-            Lưu
-          </Button>
-        </Modal.Footer>
+        <AddForm handleClose={handleClose} handleSubmit={handleSubmitAddForm} />
+      </Modal>
+      <Modal show={showEdit} onHide={handleCloseEdit}>
+        <EditForm
+          handleClose={handleCloseEdit}
+          handleSubmit={handleEditSubmit}
+          info={firstTable[editIndex]}
+        />
       </Modal>
       {/* Modal Export */}
       <Modal show={openExport} onHide={() => setOpenExport(false)}>
-        <div className='modal_export__container'>
-          <img src='https://3.bp.blogspot.com/-LcEMnX2bshM/V8L36D14JLI/AAAAAAAAASc/1UWz_uWk6ek-ziP0xWvY_MuIucnhRTZaACEw/s1600/Bulletpoint_Bullet_Listicon_Shape_Bulletfont_Glyph_Typography_Bullet_Point_Customshape_Wingding_Custom_Tick_Accept_Check_Ok_Yes-512.png' />
+        <div className="modal_export__container">
+          <img src="https://3.bp.blogspot.com/-LcEMnX2bshM/V8L36D14JLI/AAAAAAAAASc/1UWz_uWk6ek-ziP0xWvY_MuIucnhRTZaACEw/s1600/Bulletpoint_Bullet_Listicon_Shape_Bulletfont_Glyph_Typography_Bullet_Point_Customshape_Wingding_Custom_Tick_Accept_Check_Ok_Yes-512.png" />
           <h4> Xuất báo cáo thành công ở địa chỉ email 'abc@gamil.com' </h4>
           <button
-            type='button'
-            className={'button_search'}
+            type="button"
+            className={"button_search"}
             onClick={() => setOpenExport(false)}
           >
             Ok
@@ -154,12 +159,12 @@ const CrmCare = function () {
 
       <Row>
         <Col>
-          <Row className='header__container'>
-            <div className='headline-1'>Nhóm khách hàng</div>
+          <Row className="header__container">
+            <div className="headline-1">Nhóm khách hàng</div>
             <div>
               <button
-                color='primary'
-                className={classNames('button_add')}
+                color="primary"
+                className={classNames("button_add")}
                 onClick={() => setShow(true)}
               >
                 Thêm mới nhóm khách hàng
@@ -167,14 +172,14 @@ const CrmCare = function () {
             </div>
           </Row>
           {/* Filter */}
-          <Row className='filter__root'>
-            <div className='filter__container'>
-              <img src={searchIcon} alt='Search' className='icon_search' />
+          <Row className="filter__root">
+            <div className="filter__container">
+              <img src={searchIcon} alt="Search" className="icon_search" />
               <input
-                type='text'
-                placeholder='Tìm kiếm theo mã nhóm khách hàng'
+                type="text"
+                placeholder="Tìm kiếm theo mã nhóm khách hàng"
               ></input>
-              <button type='button' className={classNames('button_search')}>
+              <button type="button" className={classNames("button_search")}>
                 Tìm kiếm
               </button>
             </div>
@@ -184,38 +189,38 @@ const CrmCare = function () {
               <SelectCrm title={'Nhóm khách hàng'} />
             </div> */}
           </Row>
-          <Row className='mb-4'>
+          <Row className="mb-4">
             <Col>
               <Widget>
                 <div className={s.tableTitle}>
-                  <div className='headline-2'></div>
-                  <div className='d-flex'>
-                    <a href='/#'>
-                      <img src={searchIcon} alt='Search' />
+                  <div className="headline-2"></div>
+                  <div className="d-flex">
+                    <a href="/#">
+                      <img src={searchIcon} alt="Search" />
                     </a>
-                    <a href='/#'>
+                    <a href="/#">
                       <img
-                        className='d-none d-sm-block'
+                        className="d-none d-sm-block"
                         src={cloudIcon}
-                        alt='Cloud'
+                        alt="Cloud"
                       />
                     </a>
-                    <a href='/#'>
-                      <img src={printerIcon} alt='Printer' />
+                    <a href="/#">
+                      <img src={printerIcon} alt="Printer" />
                     </a>
-                    <a href='/#'>
+                    <a href="/#">
                       <img
-                        className='d-none d-sm-block'
+                        className="d-none d-sm-block"
                         src={optionsIcon}
-                        alt='Options'
+                        alt="Options"
                       />
                     </a>
-                    <a href='/#'>
-                      <img src={funnelIcon} alt='Funnel' />
+                    <a href="/#">
+                      <img src={funnelIcon} alt="Funnel" />
                     </a>
                   </div>
                 </div>
-                <div className='widget-table-overflow'>
+                <div className="widget-table-overflow">
                   <Table
                     className={`table-striped table-borderless table-hover ${s.statesTable}`}
                     responsive
@@ -232,11 +237,11 @@ const CrmCare = function () {
                           <label for="checkbox100"/>
                         </div>
                       </th> */}
-                        <th className='w-25'>Mã nhóm khách hàng</th>
-                        <th className='w-25'>Tên nhóm khách hàng</th>
-                        <th className='w-25'>Mô tả nhóm khách hàng</th>
-                        <th className='w-25'>Số lượng KH</th>
-                        <th className='w-25'>Hành động</th>
+                        <th className="w-25">Mã nhóm khách hàng</th>
+                        <th className="w-25">Tên nhóm khách hàng</th>
+                        <th className="w-25">Mô tả nhóm khách hàng</th>
+                        <th className="w-25">Số lượng KH</th>
+                        <th className="w-25">Hành động</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -245,7 +250,7 @@ const CrmCare = function () {
                           firstTableCurrentPage * pageSize,
                           (firstTableCurrentPage + 1) * pageSize
                         )
-                        .map((item) => (
+                        .map((item, index) => (
                           <tr key={uuidv4()}>
                             {/* <td>
                             <div className="checkbox checkbox-primary">
@@ -264,18 +269,31 @@ const CrmCare = function () {
                             <td>{item.numberOfCustomer}</td>
                             <td>
                               <i
-                                className='fa fa-edit'
-                                style={{ marginRight: '10px' }}
+                                className="fa fa-edit"
+                                style={{ marginRight: "10px" }}
+                                onClick={() => {
+                                  setEditIndex(
+                                    index + firstTableCurrentPage * pageSize
+                                  );
+                                  handleShowEdit();
+                                }}
                               ></i>
-                              <i className='fa fa-trash'></i>
+                              <i
+                                className="fa fa-trash"
+                                onClick={() => {
+                                  handleDeleteElement(
+                                    index + firstTableCurrentPage * pageSize
+                                  );
+                                }}
+                              ></i>
                             </td>
                           </tr>
                         ))}
                     </tbody>
                   </Table>
                   <Pagination
-                    className='pagination-borderless'
-                    aria-label='Page navigation example'
+                    className="pagination-borderless"
+                    aria-label="Page navigation example"
                   >
                     <PaginationItem disabled={firstTableCurrentPage <= 0}>
                       <PaginationLink
@@ -283,7 +301,7 @@ const CrmCare = function () {
                           setFirstTablePage(e, firstTableCurrentPage - 1)
                         }
                         previous
-                        href='#top'
+                        href="#top"
                       />
                     </PaginationItem>
                     {[...Array(firstTablePagesCount)].map((page, i) => (
@@ -293,7 +311,7 @@ const CrmCare = function () {
                       >
                         <PaginationLink
                           onClick={(e) => setFirstTablePage(e, i)}
-                          href='#top'
+                          href="#top"
                         >
                           {i + 1}
                         </PaginationLink>
@@ -309,7 +327,7 @@ const CrmCare = function () {
                           setFirstTablePage(e, firstTableCurrentPage + 1)
                         }
                         next
-                        href='#top'
+                        href="#top"
                       />
                     </PaginationItem>
                   </Pagination>

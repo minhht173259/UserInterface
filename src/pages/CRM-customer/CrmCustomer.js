@@ -360,14 +360,16 @@ const CrmCustomers = function () {
                         )
                         .map((item, index) => {
                           if (filter.name != "") {
-                            var perfectName = filter.name.trim();
-                            perfectName = perfectName
+                            var perfectName = filter.name
+                              .trim()
+                              .replace(/\s+/g, " ")
                               .toLowerCase()
                               .normalize("NFD")
                               .replace(/[\u0300-\u036f]/g, "");
 
                             var perfectItem = item.name
                               .trim()
+                              .replace(/\s+/g, " ")
                               .normalize("NFD")
                               .replace(/[\u0300-\u036f]/g, "");
                             perfectItem = perfectItem.toLocaleLowerCase();
@@ -416,14 +418,18 @@ const CrmCustomers = function () {
                                   className="fa fa-edit"
                                   style={{ marginRight: "10px" }}
                                   onClick={() => {
-                                    setChangeIndex(index);
+                                    setChangeIndex(
+                                      index + firstTableCurrentPage * pageSize
+                                    );
                                     handleShowChange();
                                   }}
                                 ></i>
                                 <i
                                   className="fa fa-trash hover-button"
                                   onClick={() => {
-                                    deleteCustom(index);
+                                    deleteCustom(
+                                      index + firstTableCurrentPage * pageSize
+                                    );
                                   }}
                                 ></i>
                               </td>
