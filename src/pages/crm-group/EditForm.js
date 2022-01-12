@@ -5,10 +5,12 @@ import "./styles.scss";
 import { element } from "prop-types";
 import { Notification2 } from "../../components/Notification/Notification.js";
 import { toast } from "react-toastify";
-function AddForm(props) {
-  const [groupId, setGroupId] = useState("");
-  const [groupName, setGroupName] = useState("");
-  const [groupDescription, setGroupDescription] = useState("");
+function EditForm(props) {
+  const [groupId, setGroupId] = useState(props.info.groupId);
+  const [groupName, setGroupName] = useState(props.info.groupName);
+  const [groupDescription, setGroupDescription] = useState(
+    props.info.groupDescription
+  );
 
   return (
     <>
@@ -117,4 +119,4 @@ function AddForm(props) {
   );
 }
 
-export default AddForm;
+export default EditForm;
