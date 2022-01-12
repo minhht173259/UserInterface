@@ -32,6 +32,7 @@ import moreIcon from "../../assets/tables/moreIcon.svg";
 import s from "./Tables.module.scss";
 import mock from "./mock.js";
 import AddForm from "./AddForm.js";
+import EditForm from "./EditForm";
 import Notification, {
   Notification2,
 } from "../../components/Notification/Notification.js";
@@ -39,10 +40,11 @@ import { toast } from "react-toastify";
 import "./styles.scss";
 import classNames from "classnames";
 import SelectCrm from "../CRM-customer/components/SelectCrm.js";
+import { cares, data, changeData } from "./data/care";
 
 const CrmCare = function () {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [firstTable] = useState(mock.firstTable);
+  const [firstTable, setFirstTable] = useState(data);
   const [secondTable] = useState(mock.secondTable);
   const [transactions, setTransactions] = useState(mock.transactionsWidget);
   const [tasks, setTasks] = useState(mock.tasksWidget);
@@ -95,50 +97,98 @@ const CrmCare = function () {
     );
   };
 
+  const [filter, setFilter] = useState({
+    activityName: "",
+    priority: "Độ ưu tiên",
+    status: "Trạng thái",
+    careType: "Loại hình chăm sóc",
+    employee: "Nhân viên quản lý",
+  });
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const submitForm = (info) => {
+    var newFirstTable = [...firstTable];
+    newFirstTable.push({
+      id: "checkbox111",
+      activityName: info[0],
+      careType: info[1],
+      customerName: info[2],
+      priority: info[3],
+      employee: info[4],
+      status: info[5],
+      startDate: info[6],
+      endDate: info[7]
+    });
+    setFirstTable(newFirstTable);
+    changeData(newFirstTable);
+  };
+
+  const deleteCare = (index) => {
+    var newTable = [...firstTable];
+    var elementDeleted = newTable.splice(index, 1);
+    setFirstTable(newTable);
+    changeData(newTable);
+    const notificationTypes = ["success"];
+    const getRandomNotification = () => {
+      return notificationTypes[
+        Math.floor(Math.random() * notificationTypes.length)
+      ];
+    };
+    let notificationName = getRandomNotification();
+    let msg = {
+      success: "Đã xóa " + elementDeleted[0].activityName,
+      error: "Thêm thất bại",
+    };
+    toast(
+      <Notification2
+        type={notificationName}
+        withIcon
+        msg={msg[notificationName]}
+      />,
+      {
+        autoClose: 4000,
+        closeButton: false,
+        hideProgressBar: true,
+      }
+    );
+  };
+
+  const [changeIndex, setChangeIndex] = useState(-1);
+  const handleChangeSubmit = (e) => {
+    firstTable[changeIndex] = {
+      id: "checkbox111",
+      activityName: e[0],
+      careType: e[1],
+      customerName: e[2],
+      priority: e[3],
+      employee: e[4],
+      status: e[5],
+      startDate: e[6],
+      endDate: e[7]
+    };
+  };
+
+  const [showChangeElment, setShowChangeElment] = useState(false);
+  const handleShowChange = () => setShowChangeElment(true);
+  const handleCloseChange = () => setShowChangeElment(false);
+
+
   return (
     <div>
       <Modal show={show} onHide={handleClose}>
-        <AddForm />
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Đóng
-          </Button>
-          <Button
-            variant="primary"
-            onClick={() => {
-              const notificationTypes = ["success", "error"];
-              const getRandomNotification = () => {
-                return notificationTypes[
-                  Math.floor(Math.random() * notificationTypes.length)
-                ];
-              };
-              let notificationName = getRandomNotification();
-              let msg = { success: "Thêm thành công", error: "Thêm thất bại" };
-              toast(
-                <Notification2
-                  type={notificationName}
-                  withIcon
-                  msg={msg[notificationName]}
-                />,
-                {
-                  autoClose: 4000,
-                  closeButton: false,
-                  hideProgressBar: true,
-                }
-              );
-              if (notificationName == "success") handleClose();
-            }}
-          >
-            Lưu
-          </Button>
-        </Modal.Footer>
+        <AddForm handleClose={handleClose} submitForm={submitForm} />
       </Modal>
-
+      <Modal show={showChangeElment} onHide={handleCloseChange}>
+        <EditForm
+          handleClose={handleCloseChange}
+          submitForm={handleChangeSubmit}
+          info={firstTable[changeIndex]}
+        />
+      </Modal>
       {/* Modal Export */}
       <Modal show={openExport} onHide={() => setOpenExport(false)}>
         <div className="modal_export__container">
@@ -181,6 +231,115 @@ const CrmCare = function () {
               <img src={searchIcon} alt="Search" className="icon_search" />
               <input
                 type="text"
+                placeholder="Tên hoạt động ví dụ: Hoạt đông 1"
+                value={filter.activityName}
+                onChange={(e) => {
+                  var newFilter = { ...filter };
+                  newFilter.activityName = e.target.value;
+                  setFilter(newFilter);
+                }}
+              ></input>
+              <button type="button" className={classNames("button_search")}>
+                Tìm kiếm
+              </button>
+            </div>
+            <div className="filter__options" style={{ marginRight: "600px" }}>
+              <select
+                name="customerType"
+                id="customerTypes"
+                style={{
+                  marginRight: "30px",
+                  padding: "5px",
+                  height: "45px",
+                  width: "fit-content",
+                }}
+                value={filter.status}
+                onChange={(e) => {
+                  var newFilter = { ...filter };
+                  newFilter.status = e.target.value;
+                  setFilter(newFilter);
+                }}
+              >
+                <option value={"Trạng thái"}>{"Trạng thái"}</option>
+                {cares.status.map((element, index) => {
+                  return <option value={element}>{element}</option>;
+                })}
+              </select>
+              <select
+                name="customerType"
+                id="customerTypes"
+                style={{
+                  marginRight: "30px",
+                  padding: "5px",
+                  height: "45px",
+                  width: "fit-content",
+                }}
+                value={filter.careType}
+                onChange={(e) => {
+                  var newFilter = { ...filter };
+                  newFilter.careType = e.target.value;
+                  setFilter(newFilter);
+                }}
+              >
+                <option value={"Loại hình chăm sóc"}>{"Loại hình chăm sóc"}</option>
+                {cares.careType.map((element, index) => {
+                  return <option value={element}>{element}</option>;
+                })}
+              </select>
+              <select
+                name="customerType"
+                id="customerTypes"
+                style={{
+                  marginRight: "30px",
+                  padding: "5px",
+                  height: "45px",
+                  width: "fit-content",
+                }}
+                value={filter.employee}
+                onChange={(e) => {
+                  var newFilter = { ...filter };
+                  newFilter.employee = e.target.value;
+                  setFilter(newFilter);
+                }}
+              >
+                <option value={"Nhân viên quản lý"}>{"Nhân viên quản lý"}</option>
+                {cares.employee.map((element, index) => {
+                  return <option value={element}>{element}</option>;
+                })}
+              </select>
+
+              <select
+                name="customerType"
+                id="customerTypes"
+                style={{
+                  marginRight: "30px",
+                  padding: "5px",
+                  height: "45px",
+                  width: "fit-content",
+                }}
+                value={filter.priority}
+                onChange={(e) => {
+                  var newFilter = { ...filter };
+                  newFilter.priority = e.target.value;
+                  setFilter(newFilter);
+                }}
+              >
+                <option value={"Độ ưu tiên"}>{"Độ ưu tiên"}</option>
+                {cares.priority.map((element, index) => {
+                  return <option value={element}>{element}</option>;
+                })}
+              </select>
+
+              {/* <SelectCrm title={"Trạng thái khách hàng"} />
+              <SelectCrm title={"Người quản lý"} />
+              <SelectCrm title={"Nhóm khách hàng"} /> */}
+            </div>
+          </Row>
+          {/* <Row className="filter__root">
+            <div className="filter__container">
+              <img src={searchIcon} alt="Search" className="icon_search" />
+              <input
+                type="text"
                 placeholder="Tìm kiếm theo Tên hoạt động"
               ></input>
               <button type="button" className={classNames("button_search")}>
@@ -193,7 +352,7 @@ const CrmCare = function () {
               <SelectCrm title={"Loại hình chăm sóc"} />
               <SelectCrm title={"Nhân viên phụ trách"} />
             </div>
-          </Row>
+          </Row> */}
           <Row className="mb-4">
             <Col>
               <Widget>
@@ -259,7 +418,56 @@ const CrmCare = function () {
                           firstTableCurrentPage * pageSize,
                           (firstTableCurrentPage + 1) * pageSize
                         )
-                        .map((item) => (
+                        .map((item, index) => {
+                          if (filter.activityName != "") {
+                            var perfectName = filter.activityName
+                              .trim()
+                              .replace(/\s+/g, " ")
+                              .toLowerCase()
+                              .normalize("NFD")
+                              .replace(/[\u0300-\u036f]/g, "");
+
+                            var perfectItem = item.activityName
+                              .trim()
+                              .replace(/\s+/g, " ")
+                              .normalize("NFD")
+                              .replace(/[\u0300-\u036f]/g, "");
+                            perfectItem = perfectItem.toLocaleLowerCase();
+                            if (perfectName.length > perfectItem.length) {
+                              return;
+                            }
+                            // for (var i = 0; i < perfectName.length; i++) {
+                            //   if (perfectName[i] != perfectItem[i]) {
+                            //     return;
+                            //   }
+                            // }
+                            if (perfectItem.search(perfectName) == -1) {
+                              return;
+                            }
+                          }
+                          if (filter.status != "Trạng thái") {
+                            if (item.status != filter.status) {
+                              return;
+                            }
+                          }
+                          if (filter.careType != "Loại hình chăm sóc") {
+                            if (item.careType != filter.careType) {
+                              return;
+                            }
+                          }
+                          if (filter.priority != "Độ ưu tiên") {
+                            if (item.priority != filter.priority) {
+                              return;
+                            }
+                          }
+                          if (filter.employee != "Nhân viên quản lý") {
+                            if (item.employee != filter.employee) {
+                              console.log(item.employee);
+                              console.log(filter.employee);
+                              return;
+                            }
+                          }
+                          return (
                           <tr key={uuidv4()}>
                             {/* <td>
                             <div className="checkbox checkbox-primary">
@@ -278,19 +486,27 @@ const CrmCare = function () {
                             <td>{item.priority}</td>
                             <td>{item.employee}</td>
                             <td>{item.status}</td>
-                            <td>{item.start_date}</td>
-                            <td>{item.end_date}</td>
+                            <td>{item.startDate}</td>
+                            <td>{item.endDate}</td>
                             <td>
                               <td>
                                 <i
                                   className="fa fa-edit"
                                   style={{ marginRight: "10px" }}
+                                  onClick={() => {
+                                    setChangeIndex(index + firstTableCurrentPage * pageSize);
+                                    handleShowChange();
+                                  }}
                                 ></i>
-                                <i className="fa fa-trash"></i>
+                                <i className="fa fa-trash"
+                                  onClick={() => {
+                                    deleteCare(index + firstTableCurrentPage * pageSize)
+                                  }}>
+                                </i>
                               </td>
                             </td>
                           </tr>
-                        ))}
+                        )})}
                     </tbody>
                   </Table>
                   <Pagination

@@ -20,25 +20,28 @@ import {
   Label,
   Badge,
 } from "reactstrap";
-function AddForm(props) {
-  const [activityName, setActivityName] = useState("Hoạt đông 1");
+function EditForm(props) {
+  const [activityName, setActivityName] = useState(props.info.activityName);
   const [careTypes, setCareTypes] = useState(["Gửi email"]);
-  const [careType, setCareType] = useState("Gửi email");
+  const [careType, setCareType] = useState(props.info.careType);
   const [priorities, setPriorities] = useState(["Ưu tiên thấp", "Ưu tiên cao"]);
-  const [priority, setPriority] = useState("Ưu tiên thấp");
-  const [employee, setEmployee] = useState("Hoàng Trọng Minh")
+  const [priority, setPriority] = useState(props.info.priority);
+  const [employee, setEmployee] = useState(props.info.employee)
   const [employeeList, setEmployeeList] = useState([
     "Hoàng Trọng Minh",
     "Nguyễn Văn Quân",
     "Lê Xuân Vinh",
     "Nguyễn Văn Đạt"
     ]);
-  const [status, setStatus] = useState([
-    "Đang thực hiện"
+  const [statuses, setStatuses] = useState([
+    "Đang thực hiện",
+    "Đã thực hiện"
     ]);
-  const [customerName, setCustomerName] = useState("");
-  const [startDate, setStartDate] = useState("")
-  const [endDate, setEndDate] = useState("")
+  const [status, setStatus] = useState(props.info.status)  
+  const [customerName, setCustomerName] = useState(props.info.customerName);
+
+  const [startDate, setStartDate] = useState(props.info.startDate)
+  const [endDate, setEndDate] = useState(props.info.endDate)
 
   return (
     <>
@@ -113,15 +116,28 @@ function AddForm(props) {
                   return <option value={element}>{element}</option>;
                 })}
               </select>
-
+              <label for="lname">Trạng thái</label>
+              <select
+                name="status"
+                id="status"
+                value={status}
+                onChange={(e) => {
+                  setStatus(e.target.value);
+                }}
+              >
+                {statuses.map((element, index) => {
+                  return <option value={element}>{element}</option>;
+                })}
+              </select>
               <label for="lname">Ngày bắt đầu</label> <br></br>
+
               <input
                 type="date"
                 value={startDate}
                 onChange={(e) => {
                     setStartDate(e.target.value);
                 }}
-              /><br></br>
+              /> <br></br>
             <label for="lname">Ngày kết thúc</label> <br></br>
             <input
                 type="date"
@@ -146,21 +162,21 @@ function AddForm(props) {
         <Button
           variant="primary"
           onClick={() => {
-            var mes = "Thêm thành công";
+            var mes = "Chỉnh sửa thành công";
             if (activityName == "") {
-              mes = "Tên hoạt động không được bỏ trống.";
+              mes = "Tên không được bỏ trống.";
             }
             if (customerName == "") {
-              mes = "Tên khách hàng không đc bỏ trống.";
+              mes += "Tên khách hàng không đc bỏ trống.";
             }
 
             const notificationTypes = ["success", "error"];
             const getRandomNotification = () => {
-              if (mes != "Thêm thành công") {
-                mes = "Thêm thất bại " + mes;
+              if (mes != "Chỉnh sửa thành công") {
+                mes = "Chỉnh sửa thất bại " + mes;
                 return notificationTypes[1];
               }
-              props.submitForm([activityName, careType, customerName, priority, employee, status[0]]);
+              props.submitForm([activityName, careType, customerName, priority, employee, status, startDate, endDate]);
 
               return notificationTypes[0];
             };
@@ -201,4 +217,4 @@ function getFormattedDate(date) {
     return year + '-' + month + '-' + day;
   }
 
-export default AddForm;
+export default EditForm;
