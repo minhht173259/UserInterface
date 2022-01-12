@@ -130,6 +130,10 @@ const CrmCare = function () {
     setFirstTable(newFirstTable);
     changeData(newFirstTable);
   };
+
+  const [filter, setFilter] = useState({
+    groupId: "",
+  });
   return (
     <div>
       <Modal show={show} onHide={handleClose}>
@@ -178,6 +182,12 @@ const CrmCare = function () {
               <input
                 type="text"
                 placeholder="Tìm kiếm theo mã nhóm khách hàng"
+                value={filter.groupId}
+                onChange={(e) => {
+                  setFilter({
+                    groupId: e.target.value,
+                  });
+                }}
               ></input>
               <button type="button" className={classNames("button_search")}>
                 Tìm kiếm
@@ -250,45 +260,54 @@ const CrmCare = function () {
                           firstTableCurrentPage * pageSize,
                           (firstTableCurrentPage + 1) * pageSize
                         )
-                        .map((item, index) => (
-                          <tr key={uuidv4()}>
-                            {/* <td>
-                            <div className="checkbox checkbox-primary">
-                              <input
-                                id={item.id}
-                                className="styled"
-                                type="checkbox"
-                              />
-                              <Label for={item.id} />
-                            </div>
-                          </td> */}
-                            {/* <td className="d-flex align-items-center"><img className={s.image} src={item.img} alt="User"/><span className="ml-3">{item.name}</span></td> */}
-                            <td>{item.groupId}</td>
-                            <td>{item.groupName}</td>
-                            <td>{item.groupDescription}</td>
-                            <td>{item.numberOfCustomer}</td>
-                            <td>
-                              <i
-                                className="fa fa-edit"
-                                style={{ marginRight: "10px" }}
-                                onClick={() => {
-                                  setEditIndex(
-                                    index + firstTableCurrentPage * pageSize
-                                  );
-                                  handleShowEdit();
-                                }}
-                              ></i>
-                              <i
-                                className="fa fa-trash"
-                                onClick={() => {
-                                  handleDeleteElement(
-                                    index + firstTableCurrentPage * pageSize
-                                  );
-                                }}
-                              ></i>
-                            </td>
-                          </tr>
-                        ))}
+                        .map((item, index) => {
+                          var perfectGroupIdFilter = filter.groupId
+                            .trim()
+                            .replace(/\s+/g, " ")
+                            .toLowerCase()
+                            .normalize("NFD")
+                            .replace(/[\u0300-\u036f]/g, "");
+                          var perfectItemGroupId = item.groupId
+                            .trim()
+                            .replace(/\s+/g, " ")
+                            .toLowerCase()
+                            .normalize("NFD")
+                            .replace(/[\u0300-\u036f]/g, "");
+                          if (
+                            perfectItemGroupId.search(perfectGroupIdFilter) ==
+                            -1
+                          ) {
+                            return;
+                          }
+                          return (
+                            <tr key={uuidv4()}>
+                              <td>{item.groupId}</td>
+                              <td>{item.groupName}</td>
+                              <td>{item.groupDescription}</td>
+                              <td>{item.numberOfCustomer}</td>
+                              <td>
+                                <i
+                                  className="fa fa-edit"
+                                  style={{ marginRight: "10px" }}
+                                  onClick={() => {
+                                    setEditIndex(
+                                      index + firstTableCurrentPage * pageSize
+                                    );
+                                    handleShowEdit();
+                                  }}
+                                ></i>
+                                <i
+                                  className="fa fa-trash"
+                                  onClick={() => {
+                                    handleDeleteElement(
+                                      index + firstTableCurrentPage * pageSize
+                                    );
+                                  }}
+                                ></i>
+                              </td>
+                            </tr>
+                          );
+                        })}
                     </tbody>
                   </Table>
                   <Pagination
