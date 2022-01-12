@@ -22,25 +22,28 @@ import {
   Label,
   Badge,
 } from "reactstrap";
-function AddForm(props) {
-  const [name, setName] = useState("");
-  const [type, setType] = useState("Thân quen");
+function EditForm(props) {
+  const [name, setName] = useState(props.info.name);
+  const [type, setType] = useState(props.info.type);
   const [typeList, setTypeList] = useState(["Cá nhân", "Doanh nghiệp"]);
-  const [manager, setManager] = useState("Hoàng Trọng Minh");
+  const [manager, setManager] = useState(props.info.assignee);
   const [managerList, setManagerList] = useState([
     "Hoàng Trọng Minh",
     "Nguyễn Văn Quân",
     "Lê Xuân Vinh",
     "Nguyễn Văn Đạt",
   ]);
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(props.info.phone);
+  const [email, setEmail] = useState(props.info.email);
+  const [status, setStatus] = useState(props.info.status);
 
   return (
     <>
       <div>
         <Modal.Header closeButton>
-          <Modal.Title style={{ margin: "auto" }}>Thêm khách hàng</Modal.Title>
+          <Modal.Title style={{ margin: "auto" }}>
+            Thay đổi thông tin
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div class="container">
@@ -52,7 +55,7 @@ function AddForm(props) {
                 type="text"
                 id="fname"
                 name="firstname"
-                placeholder="Tên khách"
+                placeholder="Tên"
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);
@@ -123,7 +126,7 @@ function AddForm(props) {
         <Button
           variant="primary"
           onClick={() => {
-            var mes = "Thêm thành công";
+            var mes = "Thay đổi thành công";
             if (name == "") {
               mes = "Tên không được bỏ trống.";
             }
@@ -136,11 +139,18 @@ function AddForm(props) {
 
             const notificationTypes = ["success", "error"];
             const getRandomNotification = () => {
-              if (mes != "Thêm thành công") {
-                mes = "Thêm thất bại " + mes;
+              if (mes != "Thay đổi thành công") {
+                mes = "Thay đổi thất bại " + mes;
                 return notificationTypes[1];
               }
-              props.submitForm([name, type, email, phoneNumber, manager]);
+              props.submitForm([
+                name,
+                type,
+                email,
+                phoneNumber,
+                manager,
+                status,
+              ]);
 
               return notificationTypes[0];
             };
@@ -169,4 +179,4 @@ function AddForm(props) {
   );
 }
 
-export default AddForm;
+export default EditForm;

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import {
   Col,
   Row,
@@ -14,31 +14,31 @@ import {
   DropdownItem,
   Label,
   Badge,
-} from 'reactstrap';
-import { Button, Modal } from 'react-bootstrap';
-import Widget from '../../components/Widget/Widget.js';
-import TaskContainer from './components/TaskContainer/TaskContainer.js';
+} from "reactstrap";
+import { Button, Modal } from "react-bootstrap";
+import Widget from "../../components/Widget/Widget.js";
+import TaskContainer from "./components/TaskContainer/TaskContainer.js";
 
 // import BootstrapTable from "react-bootstrap-table-next";
 // import paginationFactory from 'react-bootstrap-table2-paginator';
 // import MUIDataTable from "mui-datatables";
 
-import cloudIcon from '../../assets/tables/cloudIcon.svg';
-import funnelIcon from '../../assets/tables/funnelIcon.svg';
-import optionsIcon from '../../assets/tables/optionsIcon.svg';
-import printerIcon from '../../assets/tables/printerIcon.svg';
-import searchIcon from '../../assets/tables/searchIcon.svg';
-import moreIcon from '../../assets/tables/moreIcon.svg';
-import s from './Tables.module.scss';
-import mock from './mock.js';
-import AddForm from './AddForm.js';
+import cloudIcon from "../../assets/tables/cloudIcon.svg";
+import funnelIcon from "../../assets/tables/funnelIcon.svg";
+import optionsIcon from "../../assets/tables/optionsIcon.svg";
+import printerIcon from "../../assets/tables/printerIcon.svg";
+import searchIcon from "../../assets/tables/searchIcon.svg";
+import moreIcon from "../../assets/tables/moreIcon.svg";
+import s from "./Tables.module.scss";
+import mock from "./mock.js";
+import AddForm from "./AddForm.js";
 import Notification, {
   Notification2,
-} from '../../components/Notification/Notification.js';
-import { toast } from 'react-toastify';
-import './styles.scss';
-import classNames from 'classnames';
-import SelectCrm from '../CRM-customer/components/SelectCrm.js';
+} from "../../components/Notification/Notification.js";
+import { toast } from "react-toastify";
+import "./styles.scss";
+import classNames from "classnames";
+import SelectCrm from "../CRM-customer/components/SelectCrm.js";
 
 const CrmCare = function () {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -105,20 +105,20 @@ const CrmCare = function () {
       <Modal show={show} onHide={handleClose}>
         <AddForm />
         <Modal.Footer>
-          <Button variant='secondary' onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Đóng
           </Button>
           <Button
-            variant='primary'
+            variant="primary"
             onClick={() => {
-              const notificationTypes = ['success', 'error'];
+              const notificationTypes = ["success", "error"];
               const getRandomNotification = () => {
                 return notificationTypes[
                   Math.floor(Math.random() * notificationTypes.length)
                 ];
               };
               let notificationName = getRandomNotification();
-              let msg = { success: 'Thêm thành công', error: 'Thêm thất bại' };
+              let msg = { success: "Thêm thành công", error: "Thêm thất bại" };
               toast(
                 <Notification2
                   type={notificationName}
@@ -131,7 +131,7 @@ const CrmCare = function () {
                   hideProgressBar: true,
                 }
               );
-              if (notificationName == 'success') handleClose();
+              if (notificationName == "success") handleClose();
             }}
           >
             Lưu
@@ -141,12 +141,12 @@ const CrmCare = function () {
 
       {/* Modal Export */}
       <Modal show={openExport} onHide={() => setOpenExport(false)}>
-        <div className='modal_export__container'>
-          <img src='https://3.bp.blogspot.com/-LcEMnX2bshM/V8L36D14JLI/AAAAAAAAASc/1UWz_uWk6ek-ziP0xWvY_MuIucnhRTZaACEw/s1600/Bulletpoint_Bullet_Listicon_Shape_Bulletfont_Glyph_Typography_Bullet_Point_Customshape_Wingding_Custom_Tick_Accept_Check_Ok_Yes-512.png' />
+        <div className="modal_export__container">
+          <img src="https://3.bp.blogspot.com/-LcEMnX2bshM/V8L36D14JLI/AAAAAAAAASc/1UWz_uWk6ek-ziP0xWvY_MuIucnhRTZaACEw/s1600/Bulletpoint_Bullet_Listicon_Shape_Bulletfont_Glyph_Typography_Bullet_Point_Customshape_Wingding_Custom_Tick_Accept_Check_Ok_Yes-512.png" />
           <h4> Xuất báo cáo thành công ở địa chỉ email 'abc@gamil.com' </h4>
           <button
-            type='button'
-            className={'button_search'}
+            type="button"
+            className={"button_search"}
             onClick={() => setOpenExport(false)}
           >
             Ok
@@ -156,19 +156,19 @@ const CrmCare = function () {
 
       <Row>
         <Col>
-          <Row className='header__container'>
-            <div className='headline-1'>Hoạt động chăm sóc khách hàng</div>
+          <Row className="header__container">
+            <div className="headline-1">Hoạt động chăm sóc khách hàng</div>
             <div>
               <button
-                color='primary'
-                className={classNames('button_add')}
+                color="primary"
+                className={classNames("button_add")}
                 onClick={() => setShow(true)}
               >
                 Thêm mới hoạt động
               </button>
               <button
-                color='primary'
-                className={classNames('button_export')}
+                color="primary"
+                className={classNames("button_export")}
                 onClick={() => setOpenExport(true)}
               >
                 Xuất báo cáo
@@ -176,56 +176,56 @@ const CrmCare = function () {
             </div>
           </Row>
           {/* Filter */}
-          <Row className='filter__root'>
-            <div className='filter__container'>
-              <img src={searchIcon} alt='Search' className='icon_search' />
+          <Row className="filter__root">
+            <div className="filter__container">
+              <img src={searchIcon} alt="Search" className="icon_search" />
               <input
-                type='text'
-                placeholder='Tìm kiếm theo Tên hoạt động'
+                type="text"
+                placeholder="Tìm kiếm theo Tên hoạt động"
               ></input>
-              <button type='button' className={classNames('button_search')}>
+              <button type="button" className={classNames("button_search")}>
                 Tìm kiếm
               </button>
             </div>
-            <div className='filter__options'>
-              <SelectCrm title={'Tháng'} />
-              <SelectCrm title={'Trạng thái'} />
-              <SelectCrm title={'Loại hình chăm sóc'} />
-              <SelectCrm title={'Nhân viên phụ trách'} />
+            <div className="filter__options">
+              <SelectCrm title={"Tháng"} />
+              <SelectCrm title={"Trạng thái"} />
+              <SelectCrm title={"Loại hình chăm sóc"} />
+              <SelectCrm title={"Nhân viên phụ trách"} />
             </div>
           </Row>
-          <Row className='mb-4'>
+          <Row className="mb-4">
             <Col>
               <Widget>
                 <div className={s.tableTitle}>
-                  <div className='headline-2'></div>
-                  <div className='d-flex'>
-                    <a href='/#'>
-                      <img src={searchIcon} alt='Search' />
+                  <div className="headline-2"></div>
+                  <div className="d-flex">
+                    <a href="/#">
+                      <img src={searchIcon} alt="Search" />
                     </a>
-                    <a href='/#'>
+                    <a href="/#">
                       <img
-                        className='d-none d-sm-block'
+                        className="d-none d-sm-block"
                         src={cloudIcon}
-                        alt='Cloud'
+                        alt="Cloud"
                       />
                     </a>
-                    <a href='/#'>
-                      <img src={printerIcon} alt='Printer' />
+                    <a href="/#">
+                      <img src={printerIcon} alt="Printer" />
                     </a>
-                    <a href='/#'>
+                    <a href="/#">
                       <img
-                        className='d-none d-sm-block'
+                        className="d-none d-sm-block"
                         src={optionsIcon}
-                        alt='Options'
+                        alt="Options"
                       />
                     </a>
-                    <a href='/#'>
-                      <img src={funnelIcon} alt='Funnel' />
+                    <a href="/#">
+                      <img src={funnelIcon} alt="Funnel" />
                     </a>
                   </div>
                 </div>
-                <div className='widget-table-overflow'>
+                <div className="widget-table-overflow">
                   <Table
                     className={`table-striped table-borderless table-hover ${s.statesTable}`}
                     responsive
@@ -242,15 +242,15 @@ const CrmCare = function () {
                           <label for="checkbox100"/>
                         </div>
                       </th> */}
-                        <th className='w-auto'>Tên hoạt động</th>
-                        <th className='w-auto'>Loại hình chăm sóc</th>
-                        <th className='w-auto'>Tên khách hàng</th>
-                        <th className='w-auto'>Độ ưu tiên</th>
-                        <th className='w-auto'>Nhân viên phụ trách</th>
-                        <th className='w-auto'>Trạng thái</th>
-                        <th className='w-auto'>Ngày bắt đầu</th>
-                        <th className='w-auto'>Ngày kết thúc</th>
-                        <th className='w-auto'>Hành động</th>
+                        <th className="w-auto">Tên hoạt động</th>
+                        <th className="w-auto">Loại hình chăm sóc</th>
+                        <th className="w-auto">Tên khách hàng</th>
+                        <th className="w-auto">Độ ưu tiên</th>
+                        <th className="w-auto">Nhân viên phụ trách</th>
+                        <th className="w-auto">Trạng thái</th>
+                        <th className="w-auto">Ngày bắt đầu</th>
+                        <th className="w-auto">Ngày kết thúc</th>
+                        <th className="w-auto">Hành động</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -283,10 +283,10 @@ const CrmCare = function () {
                             <td>
                               <td>
                                 <i
-                                  className='fa fa-edit'
-                                  style={{ marginRight: '10px' }}
+                                  className="fa fa-edit"
+                                  style={{ marginRight: "10px" }}
                                 ></i>
-                                <i className='fa fa-trash'></i>
+                                <i className="fa fa-trash"></i>
                               </td>
                             </td>
                           </tr>
@@ -294,8 +294,8 @@ const CrmCare = function () {
                     </tbody>
                   </Table>
                   <Pagination
-                    className='pagination-borderless'
-                    aria-label='Page navigation example'
+                    className="pagination-borderless"
+                    aria-label="Page navigation example"
                   >
                     <PaginationItem disabled={firstTableCurrentPage <= 0}>
                       <PaginationLink
@@ -303,7 +303,7 @@ const CrmCare = function () {
                           setFirstTablePage(e, firstTableCurrentPage - 1)
                         }
                         previous
-                        href='#top'
+                        href="#top"
                       />
                     </PaginationItem>
                     {[...Array(firstTablePagesCount)].map((page, i) => (
@@ -313,7 +313,7 @@ const CrmCare = function () {
                       >
                         <PaginationLink
                           onClick={(e) => setFirstTablePage(e, i)}
-                          href='#top'
+                          href="#top"
                         >
                           {i + 1}
                         </PaginationLink>
@@ -329,7 +329,7 @@ const CrmCare = function () {
                           setFirstTablePage(e, firstTableCurrentPage + 1)
                         }
                         next
-                        href='#top'
+                        href="#top"
                       />
                     </PaginationItem>
                   </Pagination>
