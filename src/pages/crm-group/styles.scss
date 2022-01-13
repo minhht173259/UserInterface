@@ -131,3 +131,16 @@
 .add_group_container {
     
 }
+
+.edit__hover {
+    cursor: pointer;
+    &:hover {
+        color: rgb(243, 156, 18);
+    }
+}
+.delete__hover {
+    cursor: pointer;
+    &:hover {
+        color: rgb(221, 75, 57);
+    }
+}

@@ -167,4 +167,12 @@
 .info__icon_4 {
   background-color: #dd4b39 !important;
 }
-
+.select__crm {
+  margin-right: 30px;
+    padding: 5px;
+    height: 45px;
+    width: fit-content;
+  &:hover {
+    background-color: #F7F8FB;
+  }
+}

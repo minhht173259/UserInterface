@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import {
   Col,
   Row,
@@ -14,33 +14,33 @@ import {
   DropdownItem,
   Label,
   Badge,
-} from "reactstrap";
-import { Button, Modal } from "react-bootstrap";
-import Widget from "../../components/Widget/Widget.js";
-import TaskContainer from "./components/TaskContainer/TaskContainer.js";
+} from 'reactstrap';
+import { Button, Modal } from 'react-bootstrap';
+import Widget from '../../components/Widget/Widget.js';
+import TaskContainer from './components/TaskContainer/TaskContainer.js';
 
 // import BootstrapTable from "react-bootstrap-table-next";
 // import paginationFactory from 'react-bootstrap-table2-paginator';
 // import MUIDataTable from "mui-datatables";
 
-import cloudIcon from "../../assets/tables/cloudIcon.svg";
-import funnelIcon from "../../assets/tables/funnelIcon.svg";
-import optionsIcon from "../../assets/tables/optionsIcon.svg";
-import printerIcon from "../../assets/tables/printerIcon.svg";
-import searchIcon from "../../assets/tables/searchIcon.svg";
-import moreIcon from "../../assets/tables/moreIcon.svg";
-import s from "./Tables.module.scss";
-import mock from "./mock.js";
-import AddForm from "./AddForm.js";
-import EditForm from "./EditForm";
+import cloudIcon from '../../assets/tables/cloudIcon.svg';
+import funnelIcon from '../../assets/tables/funnelIcon.svg';
+import optionsIcon from '../../assets/tables/optionsIcon.svg';
+import printerIcon from '../../assets/tables/printerIcon.svg';
+import searchIcon from '../../assets/tables/searchIcon.svg';
+import moreIcon from '../../assets/tables/moreIcon.svg';
+import s from './Tables.module.scss';
+import mock from './mock.js';
+import AddForm from './AddForm.js';
+import EditForm from './EditForm';
 import Notification, {
   Notification2,
-} from "../../components/Notification/Notification.js";
-import { toast } from "react-toastify";
-import "./styles.scss";
-import classNames from "classnames";
-import SelectCrm from "../CRM-customer/components/SelectCrm.js";
-import { cares, data, changeData } from "./data/care";
+} from '../../components/Notification/Notification.js';
+import { toast } from 'react-toastify';
+import './styles.scss';
+import classNames from 'classnames';
+import SelectCrm from '../CRM-customer/components/SelectCrm.js';
+import { cares, data, changeData } from './data/care';
 
 const CrmCare = function () {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -98,11 +98,11 @@ const CrmCare = function () {
   };
 
   const [filter, setFilter] = useState({
-    activityName: "",
-    priority: "Độ ưu tiên",
-    status: "Trạng thái",
-    careType: "Loại hình chăm sóc",
-    employee: "Nhân viên quản lý",
+    activityName: '',
+    priority: 'Độ ưu tiên',
+    status: 'Trạng thái',
+    careType: 'Loại hình chăm sóc',
+    employee: 'Nhân viên quản lý',
   });
 
   const [show, setShow] = useState(false);
@@ -113,7 +113,7 @@ const CrmCare = function () {
   const submitForm = (info) => {
     var newFirstTable = [...firstTable];
     newFirstTable.push({
-      id: "checkbox111",
+      id: 'checkbox111',
       activityName: info[0],
       careType: info[1],
       customerName: info[2],
@@ -121,7 +121,7 @@ const CrmCare = function () {
       employee: info[4],
       status: info[5],
       startDate: info[6],
-      endDate: info[7]
+      endDate: info[7],
     });
     setFirstTable(newFirstTable);
     changeData(newFirstTable);
@@ -132,7 +132,7 @@ const CrmCare = function () {
     var elementDeleted = newTable.splice(index, 1);
     setFirstTable(newTable);
     changeData(newTable);
-    const notificationTypes = ["success"];
+    const notificationTypes = ['success'];
     const getRandomNotification = () => {
       return notificationTypes[
         Math.floor(Math.random() * notificationTypes.length)
@@ -140,8 +140,8 @@ const CrmCare = function () {
     };
     let notificationName = getRandomNotification();
     let msg = {
-      success: "Đã xóa " + elementDeleted[0].activityName,
-      error: "Thêm thất bại",
+      success: 'Đã xóa ' + elementDeleted[0].activityName,
+      error: 'Thêm thất bại',
     };
     toast(
       <Notification2
@@ -160,7 +160,7 @@ const CrmCare = function () {
   const [changeIndex, setChangeIndex] = useState(-1);
   const handleChangeSubmit = (e) => {
     firstTable[changeIndex] = {
-      id: "checkbox111",
+      id: 'checkbox111',
       activityName: e[0],
       careType: e[1],
       customerName: e[2],
@@ -168,14 +168,13 @@ const CrmCare = function () {
       employee: e[4],
       status: e[5],
       startDate: e[6],
-      endDate: e[7]
+      endDate: e[7],
     };
   };
 
   const [showChangeElment, setShowChangeElment] = useState(false);
   const handleShowChange = () => setShowChangeElment(true);
   const handleCloseChange = () => setShowChangeElment(false);
-
 
   return (
     <div>
@@ -191,12 +190,12 @@ const CrmCare = function () {
       </Modal>
       {/* Modal Export */}
       <Modal show={openExport} onHide={() => setOpenExport(false)}>
-        <div className="modal_export__container">
-          <img src="https://3.bp.blogspot.com/-LcEMnX2bshM/V8L36D14JLI/AAAAAAAAASc/1UWz_uWk6ek-ziP0xWvY_MuIucnhRTZaACEw/s1600/Bulletpoint_Bullet_Listicon_Shape_Bulletfont_Glyph_Typography_Bullet_Point_Customshape_Wingding_Custom_Tick_Accept_Check_Ok_Yes-512.png" />
+        <div className='modal_export__container'>
+          <img src='https://3.bp.blogspot.com/-LcEMnX2bshM/V8L36D14JLI/AAAAAAAAASc/1UWz_uWk6ek-ziP0xWvY_MuIucnhRTZaACEw/s1600/Bulletpoint_Bullet_Listicon_Shape_Bulletfont_Glyph_Typography_Bullet_Point_Customshape_Wingding_Custom_Tick_Accept_Check_Ok_Yes-512.png' />
           <h4> Xuất báo cáo thành công ở địa chỉ email 'abc@gamil.com' </h4>
           <button
-            type="button"
-            className={"button_search"}
+            type='button'
+            className={'button_search'}
             onClick={() => setOpenExport(false)}
           >
             Ok
@@ -206,19 +205,19 @@ const CrmCare = function () {
 
       <Row>
         <Col>
-          <Row className="header__container">
-            <div className="headline-1">Hoạt động chăm sóc khách hàng</div>
+          <Row className='header__container'>
+            <div className='headline-1'>Hoạt động chăm sóc khách hàng</div>
             <div>
               <button
-                color="primary"
-                className={classNames("button_add")}
+                color='primary'
+                className={classNames('button_add')}
                 onClick={() => setShow(true)}
               >
                 Thêm mới hoạt động
               </button>
               <button
-                color="primary"
-                className={classNames("button_export")}
+                color='primary'
+                className={classNames('button_export')}
                 onClick={() => setOpenExport(true)}
               >
                 Xuất báo cáo
@@ -226,12 +225,13 @@ const CrmCare = function () {
             </div>
           </Row>
           {/* Filter */}
-          <Row className="filter__root">
-            <div className="filter__container">
-              <img src={searchIcon} alt="Search" className="icon_search" />
+          <Row className='filter__root'>
+            <div className='filter__container'>
+              <img src={searchIcon} alt='Search' className='icon_search' />
               <input
-                type="text"
-                placeholder="Tên hoạt động ví dụ: Hoạt đông 1"
+                type='text'
+                style={{ paddingLeft: '40px' }}
+                placeholder='Tên hoạt động ví dụ: Hoạt đông 1'
                 value={filter.activityName}
                 onChange={(e) => {
                   var newFilter = { ...filter };
@@ -239,19 +239,19 @@ const CrmCare = function () {
                   setFilter(newFilter);
                 }}
               ></input>
-              <button type="button" className={classNames("button_search")}>
+              <button type='button' className={classNames('button_search')}>
                 Tìm kiếm
               </button>
             </div>
-            <div className="filter__options" style={{ marginRight: "600px" }}>
+            <div className='filter__options' style={{ marginRight: '600px' }}>
               <select
-                name="customerType"
-                id="customerTypes"
+                name='customerType'
+                id='customerTypes'
                 style={{
-                  marginRight: "30px",
-                  padding: "5px",
-                  height: "45px",
-                  width: "fit-content",
+                  marginRight: '30px',
+                  padding: '5px',
+                  height: '45px',
+                  width: 'fit-content',
                 }}
                 value={filter.status}
                 onChange={(e) => {
@@ -260,19 +260,19 @@ const CrmCare = function () {
                   setFilter(newFilter);
                 }}
               >
-                <option value={"Trạng thái"}>{"Trạng thái"}</option>
+                <option value={'Trạng thái'}>{'Trạng thái'}</option>
                 {cares.status.map((element, index) => {
                   return <option value={element}>{element}</option>;
                 })}
               </select>
               <select
-                name="customerType"
-                id="customerTypes"
+                name='customerType'
+                id='customerTypes'
                 style={{
-                  marginRight: "30px",
-                  padding: "5px",
-                  height: "45px",
-                  width: "fit-content",
+                  marginRight: '30px',
+                  padding: '5px',
+                  height: '45px',
+                  width: 'fit-content',
                 }}
                 value={filter.careType}
                 onChange={(e) => {
@@ -281,19 +281,21 @@ const CrmCare = function () {
                   setFilter(newFilter);
                 }}
               >
-                <option value={"Loại hình chăm sóc"}>{"Loại hình chăm sóc"}</option>
+                <option value={'Loại hình chăm sóc'}>
+                  {'Loại hình chăm sóc'}
+                </option>
                 {cares.careType.map((element, index) => {
                   return <option value={element}>{element}</option>;
                 })}
               </select>
               <select
-                name="customerType"
-                id="customerTypes"
+                name='customerType'
+                id='customerTypes'
                 style={{
-                  marginRight: "30px",
-                  padding: "5px",
-                  height: "45px",
-                  width: "fit-content",
+                  marginRight: '30px',
+                  padding: '5px',
+                  height: '45px',
+                  width: 'fit-content',
                 }}
                 value={filter.employee}
                 onChange={(e) => {
@@ -302,20 +304,22 @@ const CrmCare = function () {
                   setFilter(newFilter);
                 }}
               >
-                <option value={"Nhân viên quản lý"}>{"Nhân viên quản lý"}</option>
+                <option value={'Nhân viên quản lý'}>
+                  {'Nhân viên quản lý'}
+                </option>
                 {cares.employee.map((element, index) => {
                   return <option value={element}>{element}</option>;
                 })}
               </select>
 
               <select
-                name="customerType"
-                id="customerTypes"
+                name='customerType'
+                id='customerTypes'
                 style={{
-                  marginRight: "30px",
-                  padding: "5px",
-                  height: "45px",
-                  width: "fit-content",
+                  marginRight: '30px',
+                  padding: '5px',
+                  height: '45px',
+                  width: 'fit-content',
                 }}
                 value={filter.priority}
                 onChange={(e) => {
@@ -324,7 +328,7 @@ const CrmCare = function () {
                   setFilter(newFilter);
                 }}
               >
-                <option value={"Độ ưu tiên"}>{"Độ ưu tiên"}</option>
+                <option value={'Độ ưu tiên'}>{'Độ ưu tiên'}</option>
                 {cares.priority.map((element, index) => {
                   return <option value={element}>{element}</option>;
                 })}
@@ -353,38 +357,38 @@ const CrmCare = function () {
               <SelectCrm title={"Nhân viên phụ trách"} />
             </div>
           </Row> */}
-          <Row className="mb-4">
+          <Row className='mb-4'>
             <Col>
               <Widget>
                 <div className={s.tableTitle}>
-                  <div className="headline-2"></div>
-                  <div className="d-flex">
-                    <a href="/#">
-                      <img src={searchIcon} alt="Search" />
+                  <div className='headline-2'></div>
+                  <div className='d-flex'>
+                    <a href='/#'>
+                      <img src={searchIcon} alt='Search' />
                     </a>
-                    <a href="/#">
+                    <a href='/#'>
                       <img
-                        className="d-none d-sm-block"
+                        className='d-none d-sm-block'
                         src={cloudIcon}
-                        alt="Cloud"
+                        alt='Cloud'
                       />
                     </a>
-                    <a href="/#">
-                      <img src={printerIcon} alt="Printer" />
+                    <a href='/#'>
+                      <img src={printerIcon} alt='Printer' />
                     </a>
-                    <a href="/#">
+                    <a href='/#'>
                       <img
-                        className="d-none d-sm-block"
+                        className='d-none d-sm-block'
                         src={optionsIcon}
-                        alt="Options"
+                        alt='Options'
                       />
                     </a>
-                    <a href="/#">
-                      <img src={funnelIcon} alt="Funnel" />
+                    <a href='/#'>
+                      <img src={funnelIcon} alt='Funnel' />
                     </a>
                   </div>
                 </div>
-                <div className="widget-table-overflow">
+                <div className='widget-table-overflow'>
                   <Table
                     className={`table-striped table-borderless table-hover ${s.statesTable}`}
                     responsive
@@ -401,15 +405,15 @@ const CrmCare = function () {
                           <label for="checkbox100"/>
                         </div>
                       </th> */}
-                        <th className="w-auto">Tên hoạt động</th>
-                        <th className="w-auto">Loại hình chăm sóc</th>
-                        <th className="w-auto">Tên khách hàng</th>
-                        <th className="w-auto">Độ ưu tiên</th>
-                        <th className="w-auto">Nhân viên phụ trách</th>
-                        <th className="w-auto">Trạng thái</th>
-                        <th className="w-auto">Ngày bắt đầu</th>
-                        <th className="w-auto">Ngày kết thúc</th>
-                        <th className="w-auto">Hành động</th>
+                        <th className='w-auto'>Tên hoạt động</th>
+                        <th className='w-auto'>Loại hình chăm sóc</th>
+                        <th className='w-auto'>Tên khách hàng</th>
+                        <th className='w-auto'>Độ ưu tiên</th>
+                        <th className='w-auto'>Nhân viên phụ trách</th>
+                        <th className='w-auto'>Trạng thái</th>
+                        <th className='w-auto'>Ngày bắt đầu</th>
+                        <th className='w-auto'>Ngày kết thúc</th>
+                        <th className='w-auto'>Hành động</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -419,19 +423,19 @@ const CrmCare = function () {
                           (firstTableCurrentPage + 1) * pageSize
                         )
                         .map((item, index) => {
-                          if (filter.activityName != "") {
+                          if (filter.activityName != '') {
                             var perfectName = filter.activityName
                               .trim()
-                              .replace(/\s+/g, " ")
+                              .replace(/\s+/g, ' ')
                               .toLowerCase()
-                              .normalize("NFD")
-                              .replace(/[\u0300-\u036f]/g, "");
+                              .normalize('NFD')
+                              .replace(/[\u0300-\u036f]/g, '');
 
                             var perfectItem = item.activityName
                               .trim()
-                              .replace(/\s+/g, " ")
-                              .normalize("NFD")
-                              .replace(/[\u0300-\u036f]/g, "");
+                              .replace(/\s+/g, ' ')
+                              .normalize('NFD')
+                              .replace(/[\u0300-\u036f]/g, '');
                             perfectItem = perfectItem.toLocaleLowerCase();
                             if (perfectName.length > perfectItem.length) {
                               return;
@@ -445,22 +449,22 @@ const CrmCare = function () {
                               return;
                             }
                           }
-                          if (filter.status != "Trạng thái") {
+                          if (filter.status != 'Trạng thái') {
                             if (item.status != filter.status) {
                               return;
                             }
                           }
-                          if (filter.careType != "Loại hình chăm sóc") {
+                          if (filter.careType != 'Loại hình chăm sóc') {
                             if (item.careType != filter.careType) {
                               return;
                             }
                           }
-                          if (filter.priority != "Độ ưu tiên") {
+                          if (filter.priority != 'Độ ưu tiên') {
                             if (item.priority != filter.priority) {
                               return;
                             }
                           }
-                          if (filter.employee != "Nhân viên quản lý") {
+                          if (filter.employee != 'Nhân viên quản lý') {
                             if (item.employee != filter.employee) {
                               console.log(item.employee);
                               console.log(filter.employee);
@@ -468,8 +472,8 @@ const CrmCare = function () {
                             }
                           }
                           return (
-                          <tr key={uuidv4()}>
-                            {/* <td>
+                            <tr key={uuidv4()}>
+                              {/* <td>
                             <div className="checkbox checkbox-primary">
                               <input
                                 id={item.id}
@@ -479,39 +483,51 @@ const CrmCare = function () {
                               <Label for={item.id} />
                             </div>
                           </td> */}
-                            {/* <td className="d-flex align-items-center"><img className={s.image} src={item.img} alt="User"/><span className="ml-3">{item.name}</span></td> */}
-                            <td>{item.activityName}</td>
-                            <td>{item.careType}</td>
-                            <td>{item.customerName}</td>
-                            <td>{item.priority}</td>
-                            <td>{item.employee}</td>
-                            <td>{item.status}</td>
-                            <td>{item.startDate}</td>
-                            <td>{item.endDate}</td>
-                            <td>
+                              {/* <td className="d-flex align-items-center"><img className={s.image} src={item.img} alt="User"/><span className="ml-3">{item.name}</span></td> */}
+                              <td>{item.activityName}</td>
+                              <td>{item.careType}</td>
+                              <td>{item.customerName}</td>
+                              <td>{item.priority}</td>
+                              <td>{item.employee}</td>
+                              <td>{item.status}</td>
+                              <td>{item.startDate}</td>
+                              <td>{item.endDate}</td>
                               <td>
-                                <i
-                                  className="fa fa-edit"
-                                  style={{ marginRight: "10px" }}
-                                  onClick={() => {
-                                    setChangeIndex(index + firstTableCurrentPage * pageSize);
-                                    handleShowChange();
-                                  }}
-                                ></i>
-                                <i className="fa fa-trash"
-                                  onClick={() => {
-                                    deleteCare(index + firstTableCurrentPage * pageSize)
-                                  }}>
-                                </i>
+                                <td>
+                                  <i
+                                    className={classNames(
+                                      'fa fa-edit',
+                                      'edit__hover'
+                                    )}
+                                    style={{ marginRight: '10px' }}
+                                    onClick={() => {
+                                      setChangeIndex(
+                                        index + firstTableCurrentPage * pageSize
+                                      );
+                                      handleShowChange();
+                                    }}
+                                  ></i>
+                                  <i
+                                    className={classNames(
+                                      'fa fa-trash hover-button',
+                                      'delete__hover'
+                                    )}
+                                    onClick={() => {
+                                      deleteCare(
+                                        index + firstTableCurrentPage * pageSize
+                                      );
+                                    }}
+                                  ></i>
+                                </td>
                               </td>
-                            </td>
-                          </tr>
-                        )})}
+                            </tr>
+                          );
+                        })}
                     </tbody>
                   </Table>
                   <Pagination
-                    className="pagination-borderless"
-                    aria-label="Page navigation example"
+                    className='pagination-borderless'
+                    aria-label='Page navigation example'
                   >
                     <PaginationItem disabled={firstTableCurrentPage <= 0}>
                       <PaginationLink
@@ -519,7 +535,7 @@ const CrmCare = function () {
                           setFirstTablePage(e, firstTableCurrentPage - 1)
                         }
                         previous
-                        href="#top"
+                        href='#top'
                       />
                     </PaginationItem>
                     {[...Array(firstTablePagesCount)].map((page, i) => (
@@ -529,7 +545,7 @@ const CrmCare = function () {
                       >
                         <PaginationLink
                           onClick={(e) => setFirstTablePage(e, i)}
-                          href="#top"
+                          href='#top'
                         >
                           {i + 1}
                         </PaginationLink>
@@ -545,7 +561,7 @@ const CrmCare = function () {
                           setFirstTablePage(e, firstTableCurrentPage + 1)
                         }
                         next
-                        href="#top"
+                        href='#top'
                       />
                     </PaginationItem>
                   </Pagination>

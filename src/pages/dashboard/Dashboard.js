@@ -37,6 +37,8 @@ import ApexLineColumnChart from '../uielements/charts/components/ApexLineColumnC
 const Dashboard = () => {
   const [checkboxes, setCheckboxes] = useState([true, false]);
 
+  const [selectValue, setSelectValue] = useState('day');
+
   const toggleCheckbox = (id) => {
     setCheckboxes((checkboxes) =>
       checkboxes.map((checkbox, index) => (index === id ? !checkbox : checkbox))
@@ -46,13 +48,121 @@ const Dashboard = () => {
   const meals = [meal1, meal2, meal3];
 
   const dataInfo = useMemo(() => {
-    return [
-      { name: 'Số khách hàng quản lý', value: 40, color: '#00c0ef' },
-      { name: 'Tổng số hoạt động', value: 50, color: '#f39c12' },
-      { name: 'Số hoạt động hoàn thành', value: 50, color: '#28A745' },
-      { name: 'Số hoạt động đã quá hạn', value: 30, color: '#dd4b39' },
-    ];
-  }, []);
+    switch (selectValue) {
+      case 'day': {
+        return [
+          {
+            name: 'Số khách hàng quản lý',
+            value: 10,
+            color: '#00c0ef',
+            icon: <i class='fa fa-users'></i>,
+          },
+          {
+            name: 'Tổng số hoạt động',
+            value: 12,
+            color: '#f39c12',
+            icon: <i class='fa fa-handshake-o'></i>,
+          },
+          {
+            name: 'Số hoạt động hoàn thành',
+            value: 8,
+            color: '#28A745',
+            icon: <i class='fa fa-check-circle-o'></i>,
+          },
+          {
+            name: 'Số hoạt động đã quá hạn',
+            value: 4,
+            color: '#dd4b39',
+            icon: <i class='fa fa-exclamation'></i>,
+          },
+        ];
+      }
+      case 'month': {
+        return [
+          {
+            name: 'Số khách hàng quản lý',
+            value: 40,
+            color: '#00c0ef',
+            icon: <i class='fa fa-users'></i>,
+          },
+          {
+            name: 'Tổng số hoạt động',
+            value: 50,
+            color: '#f39c12',
+            icon: <i class='fa fa-handshake-o'></i>,
+          },
+          {
+            name: 'Số hoạt động hoàn thành',
+            value: 30,
+            color: '#28A745',
+            icon: <i class='fa fa-check-circle-o'></i>,
+          },
+          {
+            name: 'Số hoạt động đã quá hạn',
+            value: 20,
+            color: '#dd4b39',
+            icon: <i class='fa fa-exclamation'></i>,
+          },
+        ];
+      }
+      case 'year': {
+        return [
+          {
+            name: 'Số khách hàng quản lý',
+            value: 200,
+            color: '#00c0ef',
+            icon: <i class='fa fa-users'></i>,
+          },
+          {
+            name: 'Tổng số hoạt động',
+            value: 250,
+            color: '#f39c12',
+            icon: <i class='fa fa-handshake-o'></i>,
+          },
+          {
+            name: 'Số hoạt động hoàn thành',
+            value: 200,
+            color: '#28A745',
+            icon: <i class='fa fa-check-circle-o'></i>,
+          },
+          {
+            name: 'Số hoạt động đã quá hạn',
+            value: 50,
+            color: '#dd4b39',
+            icon: <i class='fa fa-exclamation'></i>,
+          },
+        ];
+      }
+      default: {
+        return [
+          {
+            name: 'Số khách hàng quản lý',
+            value: 40,
+            color: '#00c0ef',
+            icon: <i class='fa fa-users'></i>,
+          },
+          {
+            name: 'Tổng số hoạt động',
+            value: 70,
+            color: '#f39c12',
+            icon: <i class='fa fa-handshake-o'></i>,
+          },
+          {
+            name: 'Số hoạt động hoàn thành',
+            value: 40,
+            color: '#28A745',
+            icon: <i class='fa fa-check-circle-o'></i>,
+          },
+          {
+            name: 'Số hoạt động đã quá hạn',
+            value: 30,
+            color: '#dd4b39',
+            icon: <i class='fa fa-exclamation'></i>,
+          },
+        ];
+      }
+    }
+  }, [selectValue]);
 
   const dataInfoGroup = useMemo(() => {
     return [
@@ -60,6 +170,21 @@ const Dashboard = () => {
       { name: 'Khách VIP', value: 50, color: '#f39c12' },
     ];
   }, []);
+
+  const OPTIONS = [
+    {
+      key: 'day',
+      label: 'Ngày',
+    },
+    {
+      key: 'month',
+      label: 'Tháng',
+    },
+    {
+      key: 'year',
+      label: 'Năm',
+    },
+  ];
 
   return (
     <div>
@@ -75,60 +200,47 @@ const Dashboard = () => {
                   <div className='headline-3 d-flex align-items-center'>
                     Thông tin
                   </div>
-                  <UncontrolledDropdown>
-                    <DropdownToggle caret>&nbsp; Weekly &nbsp;</DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem>Daily</DropdownItem>
-                      <DropdownItem>Weekly</DropdownItem>
-                      <DropdownItem>Monthly</DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
+                  <select
+                    name='customerType'
+                    id='customerTypes'
+                    className={s.select__crm}
+                    value={selectValue}
+                    onChange={(e) => {
+                      // var newFilter = { ...filter };
+                      // newFilter.status = e.target.value;
+                      setSelectValue(e.target.value);
+                    }}
+                  >
+                    {OPTIONS.map((element, index) => {
+                      return (
+                        <option value={element.key} key={index}>
+                          {element.label}
+                        </option>
+                      );
+                    })}
+                  </select>
                 </div>
                 <div className={s.info__container}>
-                  <div className={s.info__item}>
-                    <span className={classNames(s.info__icon, s.info__icon_1)}>
-                      <i class='fa fa-users'></i>
-                    </span>
-                    <div className={s.info__content}>
-                      <span className={s.info__content_label}>
-                        {'Số khách hàng quản lý'}
+                  {dataInfo.map((item, key) => (
+                    <div className={s.info__item}>
+                      <span
+                        className={classNames(s.info__icon, {
+                          [s.info__icon_1]: false,
+                        })}
+                        style={{ backgroundColor: item.color }}
+                      >
+                        {item.icon}
                       </span>
-                      <span className={s.info__content_value}>{50}</span>
+                      <div className={s.info__content}>
+                        <span className={s.info__content_label}>
+                          {item.name}
+                        </span>
+                        <span className={s.info__content_value}>
+                          {item.value}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                  <div className={s.info__item}>
-                    <span className={classNames(s.info__icon, s.info__icon_2)}>
-                      <i class='fa fa-handshake-o'></i>
-                    </span>
-                    <div className={s.info__content}>
-                      <span className={s.info__content_label}>
-                        {'Tổng số hoạt động'}
-                      </span>
-                      <span className={s.info__content_value}>{30}</span>
-                    </div>
-                  </div>{' '}
-                  <div className={s.info__item}>
-                    <span className={classNames(s.info__icon, s.info__icon_3)}>
-                      <i class='fa fa-check-circle-o'></i>
-                    </span>
-                    <div className={s.info__content}>
-                      <span className={s.info__content_label}>
-                        {'Số hoạt động đã hoàn thành'}
-                      </span>
-                      <span className={s.info__content_value}>{25}</span>
-                    </div>
-                  </div>{' '}
-                  <div className={s.info__item}>
-                    <span className={classNames(s.info__icon, s.info__icon_4)}>
-                      <i class='fa fa-exclamation'></i>
-                    </span>
-                    <div className={s.info__content}>
-                      <span className={s.info__content_label}>
-                        {'Số hoạt động đã quá hạn'}
-                      </span>
-                      <span className={s.info__content_value}>{5}</span>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </Widget>
             </Col>
