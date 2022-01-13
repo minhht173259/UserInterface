@@ -80,7 +80,7 @@ export function Notification2({ ...props }) {
           {props.withIcon && <img src={icon} alt="..."/>}
         </div>
         <div className={s.messageContainer}>
-          <span dangerouslySetInnerHTML={{__html: `<span class='body-2'>${props.type}:</span> ${props.msg}`}}></span>
+          <span dangerouslySetInnerHTML={{__html: `<span class='body-2'>Thông báo:</span> ${props.msg}`}}></span>
         </div>
       </Alert>
     </>
