@@ -22,7 +22,7 @@ import {
 } from "reactstrap";
 function AddForm(props) {
   const [activityName, setActivityName] = useState("Hoạt đông 1");
-  const [careTypes, setCareTypes] = useState(["Gửi email"]);
+  const [careTypes, setCareTypes] = useState(["Gửi email", "Gọi điện tư vấn"]);
   const [careType, setCareType] = useState("Gửi email");
   const [priorities, setPriorities] = useState(["Ưu tiên thấp", "Ưu tiên cao"]);
   const [priority, setPriority] = useState("Ưu tiên thấp");
@@ -49,7 +49,7 @@ function AddForm(props) {
         <Modal.Body>
           <div class="container">
             <form action="action_page.php">
-              <label for="lname" value={activityName}>
+              <label className="required" for="lname" value={activityName}>
                 Tên hoạt động
               </label>
               <input
@@ -61,7 +61,6 @@ function AddForm(props) {
                     setActivityName(e.target.value);
                 }}
               />
-
               <label for="lname">Loại hình chăm sóc</label>
               <select
                 name="careType"

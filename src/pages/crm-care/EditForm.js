@@ -22,7 +22,7 @@ import {
 } from "reactstrap";
 function EditForm(props) {
   const [activityName, setActivityName] = useState(props.info.activityName);
-  const [careTypes, setCareTypes] = useState(["Gửi email"]);
+  const [careTypes, setCareTypes] = useState(["Gửi email", "Gọi điện tư vấn"]);
   const [careType, setCareType] = useState(props.info.careType);
   const [priorities, setPriorities] = useState(["Ưu tiên thấp", "Ưu tiên cao"]);
   const [priority, setPriority] = useState(props.info.priority);
