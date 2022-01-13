@@ -39,7 +39,7 @@ const Sidebar = (props) => {
           header='Dashboard'
           isHeader
           iconName={<i className={'eva eva-home-outline'} />}
-          link='/template/dashboard'
+          link='/crm/dashboard'
           index='dashboard'
           badge='9'
         />
@@ -84,7 +84,7 @@ const Sidebar = (props) => {
           link='/crm/settings'
         />
 
-        {/* <h5 className={s.navTitle}>TEMPLATE</h5>
+        <h5 className={s.navTitle}>TEMPLATE</h5>
         <LinksGroup
           onActiveSidebarItemChange={(activeItem) =>
             props.dispatch(changeActiveSidebarItem(activeItem))
@@ -142,7 +142,7 @@ const Sidebar = (props) => {
               link: '/template/ui-elements/maps',
             },
           ]}
-        /> */}
+        />
       </ul>
       {/* <div className="bg-widget d-flex mt-auto ml-1">
         <Button className="rounded-pill my-3 body-2 d-none d-md-block" type="submit" color="secondary-red">Unlock Full Version</Button>

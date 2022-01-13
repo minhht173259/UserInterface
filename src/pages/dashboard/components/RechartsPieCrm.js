@@ -1,8 +1,8 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-import s from '../Charts.module.scss';
-import Dot from '../../../../components/Dot/Dot';
+import s from './Charts.module.scss';
+import Dot from '../../../components/Dot/Dot';
 
 const chartsSettings = {
   donut: {
@@ -14,25 +14,20 @@ const chartsSettings = {
   },
 };
 
-const RechartsPieChart = ({ data }) => {
+const RechartsPieCrm = ({ data }) => {
   return (
     <div style={{ height: '316px' }}>
       <ResponsiveContainer width='100%' height={200}>
         <PieChart>
-          <Pie
-            data={chartsSettings.donut.data}
-            innerRadius={50}
-            outerRadius={80}
-            dataKey='value'
-          >
-            {chartsSettings.donut.data.map((entry, index) => (
+          <Pie data={data} innerRadius={50} outerRadius={80} dataKey='value'>
+            {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
             ))}
           </Pie>
         </PieChart>
       </ResponsiveContainer>
       <div className={s.donutLabels}>
-        {chartsSettings.donut.data.map((entry, index) => (
+        {data.map((entry, index) => (
           <div key={uuidv4()} className={s.label}>
             <Dot color={entry.color} />
             <span className='body-3 ml-2'>{entry.name}</span>
@@ -43,4 +38,4 @@ const RechartsPieChart = ({ data }) => {
   );
 };
 
-export default RechartsPieChart;
+export default React.memo(RechartsPieCrm);

@@ -48,13 +48,13 @@ const App = (props) => {
           <Route
             path='/'
             exact
-            render={() => <Redirect to='/template/dashboard' />}
+            render={() => <Redirect to='/crm/dashboard' />}
           />
-          <Route
+          {/* <Route
             path='/template'
             exact
-            render={() => <Redirect to='/template/dashboard' />}
-          />
+            render={() => <Redirect to='/crm/dashboard' />}
+          /> */}
           <PrivateRoute
             path='/template'
             dispatch={props.dispatch}
