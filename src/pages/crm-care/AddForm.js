@@ -49,7 +49,7 @@ function AddForm(props) {
         <Modal.Body>
           <div class="container">
             <form action="action_page.php">
-              <label className="required" for="lname" value={activityName}>
+              <label for="lname" value={activityName}>
                 Tên hoạt động
               </label>
               <input
