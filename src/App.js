@@ -45,11 +45,7 @@ const App = (props) => {
       <ToastContainer />
       <HashRouter>
         <Switch>
-          <Route
-            path='/'
-            exact
-            render={() => <Redirect to='/crm/dashboard' />}
-          />
+          <Route path='/' exact render={() => <Redirect to='/crm/home' />} />
           {/* <Route
             path='/template'
             exact
