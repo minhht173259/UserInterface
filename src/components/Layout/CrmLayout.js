@@ -24,6 +24,7 @@ import Maps from '../../pages/uielements/maps/google/GoogleMapPage';
 // -- Component Styles
 import s from './Layout.module.scss';
 import CrmCustomers from '../../pages/CRM-customer/CrmCustomer';
+import CrmSettings from '../../pages/crm-settings/CrmSettings';
 
 const CrmLayout = (props) => {
   return (
@@ -43,6 +44,7 @@ const CrmLayout = (props) => {
             <Route path='/crm/care' exact component={CrmCare} />
             <Route path='/crm/customers' exact component={CrmCustomers} />
             <Route path='/crm/group' exact component={CrmGroup} />
+            <Route path='/crm/settings' exact component={CrmSettings} />
             <Route path='/crm/tables' exact component={Tables} />
             <Route path='/crm/notifications' exact component={Notifications} />
             <Route
