@@ -28,7 +28,7 @@ const Sidebar = (props) => {
     <nav className={cn(s.root, { [s.sidebarOpen]: burgerSidebarOpen })}>
       <header className={s.logo}>
         {/* <SofiaLogo/> */}
-        <span className={s.title}>quản lý khách hàng</span>
+        <span className={s.title}>DX CLAN</span>
       </header>
       <ul className={s.nav}>
         <LinksGroup
@@ -36,12 +36,23 @@ const Sidebar = (props) => {
             props.dispatch(changeActiveSidebarItem(activeItem))
           }
           activeItem={props.activeItem}
-          header='Dashboard'
+          header='Trang chủ'
+          isHeader
+          iconName={<i class='eva eva-bookmark'></i>}
+          link='/crm/home'
+          index='dashboard'
+          badge='12'
+        />
+        <LinksGroup
+          onActiveSidebarItemChange={(activeItem) =>
+            props.dispatch(changeActiveSidebarItem(activeItem))
+          }
+          activeItem={props.activeItem}
+          header='Biểu đồ'
           isHeader
           iconName={<i className={'eva eva-home-outline'} />}
           link='/crm/dashboard'
           index='dashboard'
-          badge='9'
         />
         <LinksGroup
           onActiveSidebarItemChange={(activeItem) =>
@@ -70,7 +81,7 @@ const Sidebar = (props) => {
           activeItem={props.activeItem}
           header='Chăm sóc khách hàng'
           isHeader
-          iconName={<i className={'eva eva-person-outline'} />}
+          iconName={<i class='eva eva-share'></i>}
           link='/crm/care'
         />
         <LinksGroup
@@ -84,7 +95,7 @@ const Sidebar = (props) => {
           link='/crm/settings'
         />
 
-        <h5 className={s.navTitle}>TEMPLATE</h5>
+        {/* <h5 className={s.navTitle}>TEMPLATE</h5>
         <LinksGroup
           onActiveSidebarItemChange={(activeItem) =>
             props.dispatch(changeActiveSidebarItem(activeItem))
@@ -142,7 +153,7 @@ const Sidebar = (props) => {
               link: '/template/ui-elements/maps',
             },
           ]}
-        />
+        /> */}
       </ul>
       {/* <div className="bg-widget d-flex mt-auto ml-1">
         <Button className="rounded-pill my-3 body-2 d-none d-md-block" type="submit" color="secondary-red">Unlock Full Version</Button>

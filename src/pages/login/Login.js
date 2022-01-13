@@ -39,7 +39,7 @@ const Login = (props) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
 
-  const { from } = props.location.state || { from: { pathname: '/crm' } };
+  const { from } = { from: { pathname: '/crm/home' } };
   if (hasToken(JSON.parse(localStorage.getItem('authenticated')))) {
     return <Redirect to={from} />;
   }
@@ -53,16 +53,15 @@ const Login = (props) => {
               <div className='d-flex align-items-center justify-content-between py-3'>
                 <p className='auth-header mb-0'>Login</p>
                 <div className='logo-block'>
-                  <SofiaLogo />
-                  <p className='mb-0'>SOFIA</p>
+                  <p className='mb-0'>UXUI 12</p>
                 </div>
               </div>
-              <div className='auth-info my-2'>
+              {/* <div className='auth-info my-2'>
                 <p>
                   This is a real app with Node.js backend - use{' '}
                   <b>"admin@flatlogic.com / password"</b> to login!
                 </p>
-              </div>
+              </div> */}
               <form onSubmit={(event) => doLogin(event)}>
                 <FormGroup className='my-3'>
                   <FormText>Email</FormText>
