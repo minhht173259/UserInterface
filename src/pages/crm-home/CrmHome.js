@@ -78,7 +78,7 @@ const CrmHomePage = () => {
                       className='headline-1'
                       style={{ textTransform: 'uppercase' }}
                     >
-                      Khách hàng là tất cả gì bạn có
+                      Khách hàng là tất cả những gì bạn có
                     </p>
                     <p className='body-3'>
                       Quản lý khách hàng dễ hơn bao giờ hết !!

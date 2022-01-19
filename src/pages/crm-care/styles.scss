@@ -128,6 +128,33 @@
     }
 }
 
+.modal_export__popup {
+    padding: 16px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+    img {
+        width: 100px;
+        height: 100px;
+        margin-top: 16px;
+    }
+    button {
+        padding: 4px 20px;
+        border-radius: 5px;
+        margin-top: 16px;
+        border: 1px solid transparent;
+        background-color: #4d53e0;
+        color: #FFFFFF;
+        text-transform: uppercase;
+    }
+    h4 {
+        text-align: center;
+    }
+}
+
 .add_group_container {
     
 }

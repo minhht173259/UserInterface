@@ -9,7 +9,7 @@ function AddForm(props) {
   const [groupId, setGroupId] = useState("");
   const [groupName, setGroupName] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
-
+  const [groupNumCustomer, setGroupNumCustomer] = useState("0");
   return (
     <>
       <div>
@@ -54,6 +54,15 @@ function AddForm(props) {
                   setGroupDescription(e.target.value);
                 }}
               />
+              <label for="lname">Số lượng khách hàng</label>
+              <input
+                type="text"
+                placeholder=""
+                value={groupNumCustomer}
+                onChange={(e) => {
+                  setGroupNumCustomer(e.target.value);
+                }}
+              />
             </form>
           </div>
         </Modal.Body>
@@ -81,6 +90,7 @@ function AddForm(props) {
                 groupId: groupId,
                 groupName: groupName,
                 groupDescription: groupDescription,
+                groupNumCustomer: groupNumCustomer,
               });
             } else {
               mes = "Thêm thất bại " + mes;

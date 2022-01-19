@@ -92,6 +92,8 @@ const CrmCustomers = function () {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [showPopupElment, setShowPopupElment] = useState(false);
+  const handleShowPopup = () => setShowPopupElment(true);
 
   const submitForm = (info) => {
     var newFirstTable = [...firstTable];
@@ -167,7 +169,7 @@ const CrmCustomers = function () {
   const [showChangeElment, setShowChangeElment] = useState(false);
   const handleShowChange = () => setShowChangeElment(true);
   const handleCloseChange = () => setShowChangeElment(false);
-
+  const [deleteIndex, setDeleteIndex] = useState(-1);
   return (
     <div>
       {/* <AddForm open={openAddForm} onClose={() => setOpenAddForm(false)} /> */}
@@ -193,6 +195,42 @@ const CrmCustomers = function () {
           >
             Ok
           </button>
+        </div>
+      </Modal>
+      <Modal show={showPopupElment} onHide={() => setShowPopupElment(false)}>
+        <div className='modal_export__popup'>
+          <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Error.svg/1200px-Error.svg.png' />
+          <h4 style={{
+            'marginTop':'16px'
+          }}>Bạn có thực sự muốn xóa</h4>
+          <div style={{
+            'width': '70%',
+            'display': 'flex',
+            'justify-content': 'space-between',
+            'marginBottom':'20px',
+            'marginTop': '16px'
+          }}>
+            <button
+              type='button'
+              className={'cancelbtn'}
+              onClick={() => setShowPopupElment(false)}
+            >
+              Cancel
+            </button>
+            <button
+              type='button'
+              className={'cancelbtn'}
+              style={{
+                'backgroundColor':'#e04d61'
+              }}
+              onClick={() => {
+                deleteCustom(deleteIndex);
+                setShowPopupElment(false)
+              }}
+            >
+              Yes
+            </button>
+          </div>
         </div>
       </Modal>
       <Row>
@@ -434,9 +472,10 @@ const CrmCustomers = function () {
                                     'delete__hover'
                                   )}
                                   onClick={() => {
-                                    deleteCustom(
+                                    setDeleteIndex(
                                       index + firstTableCurrentPage * pageSize
                                     );
+                                    handleShowPopup();
                                   }}
                                 ></i>
                               </td>

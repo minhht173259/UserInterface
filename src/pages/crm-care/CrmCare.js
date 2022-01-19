@@ -158,6 +158,7 @@ const CrmCare = function () {
   };
 
   const [changeIndex, setChangeIndex] = useState(-1);
+  const [deleteIndex, setDeleteIndex] = useState(-1);
   const handleChangeSubmit = (e) => {
     firstTable[changeIndex] = {
       id: 'checkbox111',
@@ -173,7 +174,9 @@ const CrmCare = function () {
   };
 
   const [showChangeElment, setShowChangeElment] = useState(false);
+  const [showPopupElment, setShowPopupElment] = useState(false);
   const handleShowChange = () => setShowChangeElment(true);
+  const handleShowPopup = () => setShowPopupElment(true);
   const handleCloseChange = () => setShowChangeElment(false);
 
   return (
@@ -202,7 +205,41 @@ const CrmCare = function () {
           </button>
         </div>
       </Modal>
-
+      <Modal show={showPopupElment} onHide={() => setShowPopupElment(false)}>
+        <div className='modal_export__popup'>
+          <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Error.svg/1200px-Error.svg.png' />
+          <h4 style={{
+            'marginTop':'16px'
+          }}>Bạn có thực sự muốn xóa</h4>
+          <div style={{
+            'width': '70%',
+            'display': 'flex',
+            'justify-content': 'space-between',
+            'marginBottom':'20px',
+            'marginTop': '16px'
+          }}>
+            <button
+              type='button'
+              className={'cancelbtn'}
+              onClick={() => setShowPopupElment(false)}
+            >
+              Cancel
+            </button>
+            <button
+              type='button'
+              className={'cancelbtn'}
+              style={{
+                'backgroundColor':'#e04d61'
+              }}
+              onClick={() => {
+                deleteCare(deleteIndex);
+                setShowPopupElment(false);}}
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      </Modal>
       <Row>
         <Col>
           <Row className='header__container'>
@@ -513,9 +550,10 @@ const CrmCare = function () {
                                       'delete__hover'
                                     )}
                                     onClick={() => {
-                                      deleteCare(
+                                      setDeleteIndex(
                                         index + firstTableCurrentPage * pageSize
                                       );
+                                      handleShowPopup();
                                     }}
                                   ></i>
                                 </td>

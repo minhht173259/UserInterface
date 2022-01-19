@@ -11,13 +11,13 @@ function EditForm(props) {
   const [groupDescription, setGroupDescription] = useState(
     props.info.groupDescription
   );
-
+  const [groupNumCustomer, setGroupNumCustomer] = useState(props.info.groupNumCustomer);
   return (
     <>
       <div>
         <Modal.Header closeButton>
           <Modal.Title style={{ margin: "auto" }}>
-            Thêm nhóm khách hàng
+            Sửa nhóm khách hàng
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -56,6 +56,15 @@ function EditForm(props) {
                   setGroupDescription(e.target.value);
                 }}
               />
+              <label for="lname">Số lượng khách hàng</label>
+              <input
+                type="text"
+                placeholder=""
+                value={groupNumCustomer}
+                onChange={(e) => {
+                  setGroupNumCustomer(e.target.value);
+                }}
+              />
             </form>
           </div>
         </Modal.Body>
@@ -78,19 +87,20 @@ function EditForm(props) {
               mes += " Không được bỏ trống mô tả.";
             }
             if (mes == "") {
-              mes = "Thêm thành công";
+              mes = "Sửa thành công";
               props.handleSubmit({
                 groupId: groupId,
                 groupName: groupName,
                 groupDescription: groupDescription,
+                groupNumCustomer : groupNumCustomer
               });
             } else {
-              mes = "Thêm thất bại " + mes;
+              mes = "Sửa thất bại " + mes;
             }
 
             const notificationTypes = ["success", "error"];
             const getRandomNotification = () => {
-              if (mes == "Thêm thành công") {
+              if (mes == "Sửa thành công") {
                 return notificationTypes[0];
               }
               return notificationTypes[1];

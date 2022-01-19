@@ -99,6 +99,9 @@ const CrmCare = function () {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [deleteIndex, setDeleteIndex] = useState(-1);
+  const [showPopupElment, setShowPopupElment] = useState(false);
+  const handleShowPopup = () => setShowPopupElment(true);
 
   const handleSubmitAddForm = (newValue) => {
     var newFirstTable = [...firstTable];
@@ -120,6 +123,7 @@ const CrmCare = function () {
     newFirstTable[editIndex].groupId = newValue.groupId;
     newFirstTable[editIndex].groupName = newValue.groupName;
     newFirstTable[editIndex].groupDescription = newValue.groupDescription;
+    newFirstTable[editIndex].groupNumCustomer = newValue.groupNumCustomer;
     setFirstTable(newFirstTable);
     changeData(newFirstTable);
   };
@@ -160,7 +164,42 @@ const CrmCare = function () {
           </button>
         </div>
       </Modal>
-
+      <Modal show={showPopupElment} onHide={() => setShowPopupElment(false)}>
+        <div className='modal_export__popup'>
+          <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Error.svg/1200px-Error.svg.png' />
+          <h4 style={{
+            'marginTop':'16px'
+          }}>Bạn có thực sự muốn xóa</h4>
+          <div style={{
+            'width': '70%',
+            'display': 'flex',
+            'justify-content': 'space-between',
+            'marginBottom':'20px',
+            'marginTop': '16px'
+          }}>
+            <button
+              type='button'
+              className={'cancelbtn'}
+              onClick={() => setShowPopupElment(false)}
+            >
+              Cancel
+            </button>
+            <button
+              type='button'
+              className={'cancelbtn'}
+              style={{
+                'backgroundColor':'#e04d61'
+              }}
+              onClick={() => {
+                handleDeleteElement(deleteIndex);
+                setShowPopupElment(false)
+              }}
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      </Modal>
       <Row>
         <Col>
           <Row className='header__container'>
@@ -248,11 +287,11 @@ const CrmCare = function () {
                           <label for="checkbox100"/>
                         </div>
                       </th> */}
-                        <th className='w-25'>Mã nhóm khách hàng</th>
-                        <th className='w-25'>Tên nhóm khách hàng</th>
-                        <th className='w-25'>Mô tả nhóm khách hàng</th>
-                        <th className='w-25'>Số lượng KH</th>
-                        <th className='w-25'>Hành động</th>
+                        <th className='w-24'>Mã nhóm khách hàng</th>
+                        <th className='w-24'>Tên nhóm khách hàng</th>
+                        <th className='w-24'>Mô tả nhóm khách hàng</th>
+                        <th className='w-24'>Số lượng KH</th>
+                        <th className='w-24'>Hành động</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -285,7 +324,7 @@ const CrmCare = function () {
                               <td>{item.groupId}</td>
                               <td>{item.groupName}</td>
                               <td>{item.groupDescription}</td>
-                              <td>{item.numberOfCustomer}</td>
+                              <td>{item.groupNumCustomer}</td>
                               <td>
                                 <i
                                   className={classNames(
@@ -306,9 +345,10 @@ const CrmCare = function () {
                                     'delete__hover'
                                   )}
                                   onClick={() => {
-                                    handleDeleteElement(
+                                    setDeleteIndex(
                                       index + firstTableCurrentPage * pageSize
                                     );
+                                    setShowPopupElment(true)
                                   }}
                                 ></i>
                               </td>

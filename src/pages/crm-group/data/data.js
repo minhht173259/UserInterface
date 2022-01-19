@@ -13,7 +13,7 @@ export var data = [
     img: janeCooperImg,
     groupId: "NhomKH1",
     groupName: "Khách Hàng Vip 1",
-    numberOfCustomer: 10,
+    groupNumCustomer: 10,
     groupDescription: "Khách hàng VIP",
   },
   {
@@ -21,7 +21,7 @@ export var data = [
     img: janeCooperImg,
     groupId: "NhomKH2",
     groupName: "Khách hàng vip 2",
-    numberOfCustomer: 10,
+    groupNumCustomer: 10,
 
     groupDescription: "Khách hàng VIP",
   },
